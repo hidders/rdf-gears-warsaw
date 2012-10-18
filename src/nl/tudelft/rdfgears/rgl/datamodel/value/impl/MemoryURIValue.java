@@ -1,5 +1,9 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value.impl;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.bindings.MemoryURIBinding;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
@@ -10,6 +14,11 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.sleepycat.bind.tuple.TupleBinding;
 
 public class MemoryURIValue extends URIValue {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7693375149701159596L;
+
 	public MemoryURIValue(String uri) {
 		super(Engine.getDefaultModel().createResource(uri));
 	}
@@ -50,5 +59,5 @@ public class MemoryURIValue extends URIValue {
 	public TupleBinding<RGLValue> getBinding() {
 		return new MemoryURIBinding();
 	}
-
+	
 }

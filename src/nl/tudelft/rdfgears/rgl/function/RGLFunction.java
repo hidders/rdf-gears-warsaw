@@ -1,9 +1,14 @@
 package nl.tudelft.rdfgears.rgl.function;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.type.RGLType;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.exception.WorkflowCheckingException;
@@ -21,16 +26,14 @@ import nl.tudelft.rdfgears.util.row.ValueRow;
  * @author Eric Feliksik
  * 
  */
-public abstract class RGLFunction {
+public abstract class RGLFunction implements Externalizable {
 
 	private FieldIndexMap fieldIndexMap = null;
-	private ArrayList<String> requiredInputList = new ArrayList<String>(); // contains
-																			// same
-																			// variables
-																			// as
-																			// fieldIndexMap,
-																			// but
-																			// ordered
+
+	/**
+	 * contains same variables as fieldIndexMap, but ordered
+	 */
+	private ArrayList<String> requiredInputList = new ArrayList<String>(); 
 
 	public boolean isLazy = true;
 
@@ -114,4 +117,21 @@ public abstract class RGLFunction {
 	public String getRole() {
 		return "java-function";
 	}
+
+	private transient int fId;
+	@Override
+	public void readExternal(ObjectInput in) throws IOException,
+			ClassNotFoundException {
+		fId = in.readInt();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeInt(ValueManager.registerFunction(this));		
+	}
+	
+	public Object readResolve() {
+		return ValueManager.getFunction(fId);
+	}
+
 }

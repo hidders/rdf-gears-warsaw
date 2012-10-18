@@ -1,6 +1,9 @@
 package nl.tudelft.rdfgears.engine;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import nl.tudelft.rdfgears.rgl.datamodel.type.RGLType;
@@ -16,6 +19,12 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class Engine {
+	
+	/**
+	 * FIXME debug - to delete
+	 */
+	public static Map<Integer, List<Integer>> diagnostic = new HashMap<Integer, List<Integer>>(200);
+	
 	private static Model defaultModel;
 	static Logger engineLogger = Logger.getLogger("rdfgears.engine");
 	

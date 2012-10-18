@@ -123,8 +123,9 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 	 */
 	@Override
 	public ValueRow next() {
-		if (!this.doHaveNext)
-			throw new java.util.NoSuchElementException("You should call hasNext() first."); 
+		if (!this.doHaveNext) {
+			throw new java.util.NoSuchElementException("You should call hasNext() first.");
+		}
 		
 		Iterator<String> bagNameIter = markedInputList.iterator();
 		boolean foundNewCombination = false; /* whether we found a value in an iterator without resetting that iterator. */
@@ -132,12 +133,11 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 		
 		FieldMappedValueRow returnRow = previousRow;
 		if (this.rowReadyToBeReturned){ 
-			/** only the first time, the row was already prepared by taking the first value of every 
-			 * iterator; so we don't need to modify returnRow */
+			 //only the first time, the row was already prepared by taking the first value of every 
+			 // iterator; so we don't need to modify returnRow
 			this.rowReadyToBeReturned = false;
-		}
-		else {
-			/**
+		} else {
+			/*
 			 * We need a new returnRow value. 
 			 * For every Bag, see if the associated valueIterator has more values. 
 			 * As soon as we find a next value, we are done. 
@@ -156,8 +156,7 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 				
 				if (valueIter.hasNext()){
 					foundNewCombination = true; /* We will set it in returnRow and we're done */
-				}
-				else {
+				} else {
 					/* we will reset the iterator and take a new value for returnRow, but the combination is not unique yet. */
 					valueIter = resetBagIterator(bagName);
 					assert(valueIter.hasNext()) : "There must be a value in the iterator, as we checked for empty bags on instantiation.";
@@ -170,8 +169,9 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 				returnRow.put(bagName, val);
 				
 				/* if we somewhere encounter an iterator with more values, the next call to hasNext() should be true */
-				if (!evenMore)
-					evenMore = valueIter.hasNext(); 
+				if (!evenMore) {
+					evenMore = valueIter.hasNext();
+				}
 
 				if (foundNewCombination){
 					break;

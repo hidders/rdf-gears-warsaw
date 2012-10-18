@@ -106,9 +106,9 @@ public class TestRGLFunctions extends TestCase{
     	int resultCount = 0;
     	while(recordIter.hasNext()){
     		AbstractRecordValue record = recordIter.next().asRecord();
-    		assertTrue("Should contain 'director' field", record.get("director")!=null);
-    		assertTrue("Should contain 'name' field", record.get("film")!=null);
-    		assertTrue("Should contain 'label' field", record.get("label")!=null);
+    		assertTrue("Should contain 'director' field " + resultCount, record.get("director")!=null);
+    		assertTrue("Should contain 'name' field " + resultCount, record.get("film")!=null);
+    		assertTrue("Should contain 'label' field " + resultCount, record.get("label")!=null);
     		resultCount++;
     	}
     	assertTrue("Should have 100 results (query says LIMIT 100)", resultCount==100);

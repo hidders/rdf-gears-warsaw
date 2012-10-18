@@ -20,7 +20,7 @@ import com.sleepycat.bind.tuple.TupleBinding;
  * @author Eric Feliksik
  *
  */
-public abstract class DeterminedRGLValue implements RGLValue {
+public abstract class DeterminedRGLValue implements RGLValue, Serializable {
 	protected long myId; 
 	public long getId(){ return myId; }
 	
@@ -115,7 +115,7 @@ public abstract class DeterminedRGLValue implements RGLValue {
 	 * Do not serialize.  
 	 */
 	public String toString(){
-		return "RGL_VALUE_"+getId();  
+		return "RGL_VALUE_"+getId() + " " + this.getClass();  
 	}
 
 	/**

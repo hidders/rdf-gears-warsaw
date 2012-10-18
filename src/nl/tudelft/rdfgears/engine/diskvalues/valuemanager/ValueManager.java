@@ -98,6 +98,10 @@ public class ValueManager {
 	public static void registerValue(RGLValue value) {
 		valueManager.registerValue(value);
 	}
+	
+	public static void updateValue(RGLValue value) { //FIXME #1 
+		valueManager.registerValue(value);
+	}
 
 	/**
 	 * Fetches the value with given id. This may, or may not perform some disk
@@ -109,6 +113,10 @@ public class ValueManager {
 	 */
 	public static RGLValue fetchValue(long id) {
 		return valueManager.fetchValue(id);
+	}
+
+	public static void shutDown() {
+		valueManager.shutDown();
 	}
 
 }

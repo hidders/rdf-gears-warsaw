@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.engine.valuefactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.tudelft.rdfgears.engine.Engine;
@@ -51,7 +52,7 @@ public class DiskValueFactory extends MemoryValueFactory {
 
 	@Override
 	public List<RGLValue> createBagBackingList() {
-		return new DiskList();
+		return new ArrayList<RGLValue>();
 	}
 
 	@Override

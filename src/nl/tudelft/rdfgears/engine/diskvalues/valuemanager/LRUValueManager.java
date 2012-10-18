@@ -57,4 +57,16 @@ public class LRUValueManager extends AbstractValueManager {
 
 		return id;
 	}
+
+	@Override
+	public void updateValue(RGLValue value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutDown() {
+		// TODO Auto-generated method stub
+		
+	}
 }

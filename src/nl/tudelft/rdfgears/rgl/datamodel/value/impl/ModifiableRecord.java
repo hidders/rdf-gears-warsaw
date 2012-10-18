@@ -16,7 +16,11 @@ import nl.tudelft.rdfgears.util.row.ValueRowWithPut;
  * @author af09017
  *
  */
-public class ModifiableRecord extends RecordValue implements AbstractModifiableRecord{
+public class ModifiableRecord extends RecordValue implements AbstractModifiableRecord {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9116754765814997033L;
 	private ValueRowWithPut row;
 
 	/**

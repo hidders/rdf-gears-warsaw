@@ -32,4 +32,16 @@ public class SoftValueManager extends AbstractValueManager {
 		valuesCache.put(value.getId(), new SoftReference<RGLValue>(value));
 	}
 
+	@Override
+	public void updateValue(RGLValue value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void shutDown() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

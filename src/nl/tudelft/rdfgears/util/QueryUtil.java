@@ -8,6 +8,7 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.GraphValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RDFValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractModifiableRecord;
+import nl.tudelft.rdfgears.rgl.datamodel.value.impl.ModifiableRecord;
 import nl.tudelft.rdfgears.util.row.FieldIndexMap;
 import nl.tudelft.rdfgears.util.row.ValueRow;
 
@@ -203,7 +204,7 @@ public class QueryUtil {
 				 */
 				
 				
-				AbstractModifiableRecord rec  = ValueFactory.createModifiableRecordValue(fiMap);
+				AbstractModifiableRecord rec  = new ModifiableRecord(fiMap);
 				
 				for (String fieldName : fiMap.getFieldNameSet()){
 					/* do not use soln.varNames() because it gives only the BOUND variables */
@@ -225,7 +226,7 @@ public class QueryUtil {
 						}	
 				}
 
-				list.add(rec);
+				list.add(ValueFactory.registerValue(rec)); // register the record when it's complete
 				
 				//System.out.println("Created Record "+rec);
 				

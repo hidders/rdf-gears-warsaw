@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.engine.diskvalues;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,7 +16,6 @@ import com.sleepycat.je.Database;
 import com.sleepycat.je.DatabaseEntry;
 import com.sleepycat.je.DatabaseException;
 import com.sleepycat.je.LockMode;
-import com.sleepycat.je.cleaner.OffsetList;
 
 /**
  * DiskList is an implementation of List that can store its contents on HDD
@@ -25,7 +25,7 @@ import com.sleepycat.je.cleaner.OffsetList;
  * 
  * @param <RGLValue>
  */
-public class DiskList implements List<RGLValue> {
+public class DiskList implements List<RGLValue>, Serializable {
 	
 	/**
 	 * DiskListIterator is an implementation of Iterator for DiskList. Each

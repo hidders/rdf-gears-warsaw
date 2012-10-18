@@ -4,14 +4,18 @@ package nl.tudelft.rdfgears.tests;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 import junit.framework.TestCase;
 import nl.feliksik.rdfgears.JaroSimilarityFunction;
 import nl.tudelft.rdfgears.engine.Engine;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.type.BagType;
 import nl.tudelft.rdfgears.rgl.datamodel.type.GraphType;
 import nl.tudelft.rdfgears.rgl.datamodel.type.RDFType;
 import nl.tudelft.rdfgears.rgl.datamodel.value.GraphValue;
+import nl.tudelft.rdfgears.rgl.datamodel.value.OrderedBagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractBagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractRecordValue;
@@ -76,6 +80,7 @@ public class TestWorkflowManuallyBuilt extends TestCase {
      */
     @Test 
     public void testSimple2(){
+    	try {
     	String dbpediaQuery = 
 			"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
 			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
@@ -231,19 +236,41 @@ public class TestWorkflowManuallyBuilt extends TestCase {
     	bagIter = bagOfRecords.iterator();
     	
     	HashSet<String> actualSet = new HashSet<String>();
+//    	int same = 0;
+//    	String last ="";
     	while (bagIter.hasNext()){
     		RGLValue valGen = bagIter.next();
     		AbstractRecordValue rec = valGen.asRecord();
     		
     		/* get name and add it to bag */
+    		try {
     		String name = rec.get("lmdb_dir_name").asLiteral().getRDFNode().asLiteral().getString();
+    		
+//    		if (name.equals(last)) {
+//    			same++;
+//    		} else {
+//    			Engine.getLogger().warn(name + " " +  (same + 1) + "/" + counter);
+//    			last = name;
+//    			same = 0;
+//    		}
+//    		
     		actualSet.add(name);
+    		
+    		} catch (NullPointerException e) {
+    			System.err.println("after " + counter);
+    			System.err.println(rec.getId());
+    			System.err.println(rec.asRecord());
+    			System.err.println("\n\n\n");
+    			throw e;
+    		}
     		
     		if (counter%100000==0){
     			System.out.println(counter);
     		}
     		counter++;
     	}
+    	
+    	System.out.println(counter);
     	
     	HashSet<String> expectedSet = new HashSet<String>();
     	/* we don't respect the cardinality of the results here, but that'll be checked somewhere else */
@@ -255,6 +282,10 @@ public class TestWorkflowManuallyBuilt extends TestCase {
     	}
     	
     	assert(expectedSet.equals(actualSet)): "Something went with the workflow iteration. Is it properly iterating over all the values? ";
+    	} finally {
+    		Engine.getLogger().warn(OrderedBagValue.buffer.toString());
+    		ValueManager.shutDown();
+    	}
     	
        	
     }

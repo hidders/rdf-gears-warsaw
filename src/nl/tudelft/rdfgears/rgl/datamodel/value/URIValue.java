@@ -1,5 +1,10 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.rgl.datamodel.value.visitors.RGLValueVisitor;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -38,5 +43,14 @@ public abstract class URIValue extends RDFValue {
 	@Override
 	public boolean isURI(){
 		return true;
+	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.writeUTF(uriString());
+	}
+
+	private void readObject(ObjectInputStream in) throws IOException,
+			ClassNotFoundException {
+		node = Engine.getDefaultModel().createResource(in.readUTF());
 	}
 }

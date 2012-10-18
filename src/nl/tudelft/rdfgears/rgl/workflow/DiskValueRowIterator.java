@@ -8,18 +8,6 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.RenewablyIterableBag;
 import nl.tudelft.rdfgears.util.row.ValueRow;
 
-/**
- * ValueRowIterator is an iterator over ValueRow objects. Construction takes an
- * ValueRow and a processor that iterates. It then offers a way to iterate over
- * ValueRows that are constructed from the given ValueRow according to the RGL
- * specification. That is, the types of the non-iterating ports are preserved
- * and the values simply passed on; But for the iterating ports, the value in
- * the returned ValueRow is some value taken from the bag in the original
- * ValueRow.
- * 
- * @author Tomasz Traczyk
- * 
- */
 public class DiskValueRowIterator extends AbstractValueRowIterator {
 
 	/*
@@ -28,26 +16,20 @@ public class DiskValueRowIterator extends AbstractValueRowIterator {
 	 */
 	private HashMap<String, Long> inputIterIdMap;
 
-	private Long newestIterationId;
-
 	public DiskValueRowIterator(ValueRow originalInputs,
 			FunctionProcessor processor, boolean recycleReturnRow) {
 		super(originalInputs, processor, recycleReturnRow);
-		newestIterationId = ValueFactory.getNewId();
 	}
 
 	@Override
 	protected Iterator<RGLValue> resetBagIterator(String name) {
-		if (inputIterIdMap == null)
+		if (inputIterIdMap == null) {
 			inputIterIdMap = new HashMap<String, Long>();
-		if (newestIterationId == null)
-			newestIterationId =  ValueFactory.getNewId();
-		if (newestIterationId.equals(inputIterIdMap.get(name))) {
-			newestIterationId = ValueFactory.getNewId();
 		}
+		long newIterationId = ValueFactory.getNewId();
 		Iterator<RGLValue> bagIter = ((RenewablyIterableBag) originalInputs
-				.get(name).asBag()).renewableIterator(newestIterationId);
-		inputIterIdMap.put(name, newestIterationId);
+				.get(name).asBag()).renewableIterator(newIterationId);
+		inputIterIdMap.put(name, newIterationId);
 		return bagIter;
 	}
 

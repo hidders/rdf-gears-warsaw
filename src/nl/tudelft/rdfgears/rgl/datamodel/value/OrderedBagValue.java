@@ -1,8 +1,11 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.RenewablyIterableBag;
@@ -10,6 +13,10 @@ import nl.tudelft.rdfgears.util.RenewableIterator;
 
 public abstract class OrderedBagValue extends BagValue implements
 		RenewablyIterableBag {
+	
+	//	na potrzeby debugu, docelowo do usunięcia
+	static Map<Long, Integer> cartes = new HashMap<Long, Integer>();
+	public static StringBuffer buffer = new StringBuffer(40000);
 
 	protected Map<Long, Integer> iteratorPosition = new HashMap<Long, Integer>();
 
@@ -32,21 +39,6 @@ public abstract class OrderedBagValue extends BagValue implements
 		return new OrderedBagIterator(id, pointAt);
 	}
 	
-//	@Override
-//	public final RenewableIterator<RGLValue> previousRenewableIterator(long id) { //FIXME wydzielić część wspólną z renewableIterator
-//		int pointAt;
-//		if (!iteratorPosition.containsKey(id)) {
-//			iteratorPosition.put(id, 0);
-//			pointAt = 0;
-//		} else {
-//			pointAt = iteratorPosition.get(id);//Math.max(iteratorPosition.get(id) - 1 , 0);
-//			// this way, we gave the last element of the last iteration again,
-//			// if you don't want it - simply skip it.
-//		}
-//
-//		return new OrderedBagIterator(id, Math.max(0, pointAt - 1));
-//	}
-
 	protected Iterator<RGLValue> iteratorAt(int position) {
 		Engine.getLogger().info("iteratorAt(" + position + ")");
 		Iterator<RGLValue> iterator = iterator();
@@ -75,6 +67,22 @@ public abstract class OrderedBagValue extends BagValue implements
 		@Override
 		public RGLValue next() {
 			position++;
+			{ //debug, do skasowania
+				OrderedBagValue.cartes.put(OrderedBagValue.this.myId, position);
+//				List<Integer> list = Engine.diagnostic.get(cartes.get(807l) == null ? 0 : cartes.get(807l));
+//				if (list == null) {
+//					list = new ArrayList<Integer>(200);
+//					Engine.diagnostic.put(cartes.get(807l), list);
+//				}
+//				list.add(cartes.get(1409l));
+				Iterator<Integer> it = OrderedBagValue.cartes.values().iterator();
+				buffer.append("\t");
+				for (Entry<Long, Integer> entry : cartes.entrySet()) {
+					buffer.append("<" + entry.getKey() + ":" + entry.getValue() + ":" + (entry.getKey() == myId ? id : "") + ">\t");
+				}
+				buffer.append("\n");
+//				Engine.getLogger().warn(it.next() + "," + (it.hasNext() ? it.next() : 0));
+			}
 			iteratorPosition.put(id, position);
 			return innerIterator.next();
 		}

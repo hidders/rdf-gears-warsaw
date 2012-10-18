@@ -1,5 +1,7 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value;
 
+import java.io.Serializable;
+
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractBagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractRecordValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.visitors.RGLValueVisitor;
@@ -13,7 +15,7 @@ import com.sleepycat.bind.tuple.TupleBinding;
  * @author Eric Feliksik
  * 
  */
-public interface RGLValue extends Comparable<RGLValue> {
+public interface RGLValue extends Comparable<RGLValue>, Serializable {
 
 	public long getId();
 

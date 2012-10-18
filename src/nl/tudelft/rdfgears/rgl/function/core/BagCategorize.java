@@ -1,11 +1,15 @@
 package nl.tudelft.rdfgears.rgl.function.core;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.ValueFactory;
 import nl.tudelft.rdfgears.engine.WorkflowLoader;
 import nl.tudelft.rdfgears.engine.bindings.CategoryBagBinding;
@@ -288,7 +292,7 @@ public class BagCategorize extends AtomicRGLFunction {
 		private String category; /* the category for which I am a bag. */
 
 		/** this implementation can only have ONE iterator */
-		private CategoryBagIterator instantiatedIterator = new CategoryBagIterator();
+		private transient CategoryBagIterator instantiatedIterator = new CategoryBagIterator();
 		private boolean iteratorHasBeenRequested = false;
 		private RGLValue inputBag;
 		private RGLFunction categorizer;
@@ -369,7 +373,24 @@ public class BagCategorize extends AtomicRGLFunction {
 					iteratorHasBeenRequested, inputBag, categorizer,
 					instantiatedIterator.stack, recordId);
 		}
-
+		
+		
+		private void writeObject(ObjectOutputStream out) throws IOException {
+			out.defaultWriteObject();
+			if (iteratorHasBeenRequested) {
+				out.writeObject(instantiatedIterator.stack);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		private void readObject(ObjectInputStream in) throws IOException,
+				ClassNotFoundException {
+			in.defaultReadObject();
+			if (iteratorHasBeenRequested) {
+				instantiatedIterator = new CategoryBagIterator((Stack<RGLValue>) in.readObject());
+			}
+		}
+		
 		/**
 		 * generate values, filling the appropriate CategoryBag until we find a
 		 * value for our category.

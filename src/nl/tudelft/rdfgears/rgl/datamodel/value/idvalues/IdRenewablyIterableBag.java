@@ -1,9 +1,12 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value.idvalues;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.bindings.idvalues.IdBagBinding;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractBagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.RenewablyIterableBag;
@@ -12,7 +15,7 @@ import nl.tudelft.rdfgears.util.RenewableIterator;
 import com.sleepycat.bind.tuple.TupleBinding;
 
 public class IdRenewablyIterableBag extends IdRGLValue implements RenewablyIterableBag {
-
+	
 	public IdRenewablyIterableBag(long id) {
 		super(id);
 	}
@@ -65,7 +68,7 @@ class IdRenewableIterator implements RenewableIterator<RGLValue> {
 	private boolean previous;
 
 	public IdRenewableIterator(IdRenewablyIterableBag bag, long id, boolean previous) {
-		Engine.getLogger().info(bag.toString() + " id = " + id);
+		Engine.getLogger().debug(bag.toString() + " id = " + id);
 		this.bag = bag;
 		this.id = id;
 		this.previous = previous;
@@ -78,7 +81,10 @@ class IdRenewableIterator implements RenewableIterator<RGLValue> {
 
 	@Override
 	public RGLValue next() {
-		return ((RenewablyIterableBag) bag.fetch().asBag()).renewableIterator(id).next();
+		RenewablyIterableBag tmpBag = (RenewablyIterableBag) bag.fetch().asBag();
+		RGLValue tmpValue = tmpBag.renewableIterator(id).next();
+		ValueManager.updateValue(tmpBag); //we need to update the bag, to keep the iteratorsMap up to date.
+		return tmpValue;
 	}
 
 	@Override

@@ -1,8 +1,9 @@
 package nl.tudelft.rdfgears.util.row;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public interface FieldIndexMap {
+public interface FieldIndexMap extends Serializable {
 	
 	/** 
 	 * get the array-index we should use for the given fieldName. 

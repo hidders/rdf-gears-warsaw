@@ -27,7 +27,7 @@ public class IdRGLValue implements RGLValue {
 		this.id = value.getId();
 	}
 
-	protected RGLValue fetch() {
+	public RGLValue fetch() {
 		return ValueManager.fetchValue(id);
 	}
 
@@ -113,6 +113,10 @@ public class IdRGLValue implements RGLValue {
 
 	@Override
 	public boolean isNull() {
+		if (fetch() == null) {
+			System.out.print("");
+		}
+			
 		return fetch().isNull();
 	}
 
@@ -140,6 +144,11 @@ public class IdRGLValue implements RGLValue {
 	public void prepareForMultipleReadings() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public String toString() {
+		return fetch().toString();
 	}
 
 }

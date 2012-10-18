@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.util.row;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
@@ -19,7 +20,7 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
  * @author Eric Feliksik
  *
  */
-public class FieldMappedValueRow extends AbstractRow<RGLValue> implements ValueRowWithPut {
+public class FieldMappedValueRow extends AbstractRow<RGLValue> implements ValueRowWithPut, Serializable {
 	
 	/* the array storing our RGLValue objects */
 	RGLValue[] valueArray;	

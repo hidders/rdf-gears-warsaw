@@ -10,6 +10,7 @@ import java.util.List;
 import nl.tudelft.rdfgears.engine.ValueFactory;
 import nl.tudelft.rdfgears.engine.diskvalues.DatabaseManager;
 import nl.tudelft.rdfgears.engine.diskvalues.DiskList;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.BagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.LiteralValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
@@ -39,17 +40,29 @@ import com.sleepycat.je.DatabaseEntry;
 public class BindingsTest {
 
 	private static final int SIZE = 10;
-	
+
 	public static RenewablyIterableBag getBagOfDouble() {
-		return (RenewablyIterableBag) ValueFactory.registerValue(new ListBackedBagValue(getDiskListOfDouble()));
+		return (RenewablyIterableBag) ValueFactory
+				.registerValue(new ListBackedBagValue(getListOfDouble()));
 	}
 
 	private RenewablyIterableBag getBagOfDoubleAndNull() {
-		return (RenewablyIterableBag) ValueFactory.registerValue(new ListBackedBagValue(getDiskListOfDoubleAndNull()));
+		return (RenewablyIterableBag) ValueFactory
+				.registerValue(new ListBackedBagValue(
+						getDiskListOfDoubleAndNull()));
 	}
 
 	private static DiskList getDiskListOfDouble() {
 		DiskList list = new DiskList();
+		for (double i = 0.0; i < SIZE; ++i) {
+			list.add(MemoryLiteralValue.createLiteralTyped(i, new XSDDouble(
+					"double")));
+		}
+		return list;
+	}
+	
+	private static List<RGLValue> getListOfDouble() {
+		List<RGLValue> list = new ArrayList<RGLValue>();
 		for (double i = 0.0; i < SIZE; ++i) {
 			list.add(MemoryLiteralValue.createLiteralTyped(i, new XSDDouble(
 					"double")));
@@ -105,7 +118,8 @@ public class BindingsTest {
 		return (DiskList) tb.entryToObject(dbe);
 	}
 
-	public static boolean sameDoubleBags(AbstractBagValue bag1, AbstractBagValue bag2) {
+	public static boolean sameDoubleBags(AbstractBagValue bag1,
+			AbstractBagValue bag2) {
 		Iterator<RGLValue> it1 = bag1.iterator();
 		Iterator<RGLValue> it2 = bag2.iterator();
 
@@ -117,13 +131,13 @@ public class BindingsTest {
 
 		return true;
 	}
-	
+
 	private static void printBag(AbstractBagValue bag) {
 		for (RGLValue v : bag) {
 			System.out.println(v);
 		}
 	}
-	
+
 	@Before
 	public void before() {
 		DatabaseManager.initialize();
@@ -136,10 +150,11 @@ public class BindingsTest {
 				.asLiteral().getValueDouble());
 
 		l = getMemoryLiteral("foo");
-		assertTrue(l.asLiteral().getValueString() + " != "
-				+ thereAndBack(l).asLiteral().getValueString(), thereAndBack(l)
-				.asLiteral().getValueString().equals(
-						l.asLiteral().getValueString()));
+		assertTrue(
+				l.asLiteral().getValueString() + " != "
+						+ thereAndBack(l).asLiteral().getValueString(),
+				thereAndBack(l).asLiteral().getValueString()
+						.equals(l.asLiteral().getValueString()));
 
 		MemoryURIValue uri = new MemoryURIValue("dbpedia.org");
 		assertTrue(uri.compareTo(thereAndBack(uri)) == 0);
@@ -164,8 +179,8 @@ public class BindingsTest {
 		List<RGLValue> list2 = binding.entryToObject(entry);
 
 		for (int i = 0; i < list1.size(); ++i) {
-			assertTrue(list1.get(i).asLiteral().compareTo(
-					list2.get(i).asLiteral()) == 0);
+			assertTrue(list1.get(i).asLiteral()
+					.compareTo(list2.get(i).asLiteral()) == 0);
 		}
 
 	}
@@ -239,33 +254,50 @@ public class BindingsTest {
 	}
 
 	@Test
-	public void testUnionBag() {
-		RenewablyIterableBag bag1 = getBagOfDouble();
-		RenewablyIterableBag bag2 = getBagOfDouble();
+	public void testJCSRecord() {
+		AbstractRecordValue record1 = getRecord();
+		AbstractRecordValue record2 = getRecord();
+		ValueManager.registerValue(record1);
+		ValueManager.registerValue(record2);
+		AbstractRecordValue record3 = (AbstractRecordValue) ValueManager
+				.fetchValue(record1.getId());
+		for (String s : record3.getRange()) {
+			assertTrue(sameDoubleBags(record3.get(s).asBag(), getBagOfDouble()));
+		}
 
-		UnionBagValue union1 = BagUnion.createUnionBag(ValueFactory.getNewId(),
-				new HashMap<Long, Integer>(), bag1, bag2);
-
-		UnionBagValue union3 = BagUnion.createUnionBag(ValueFactory.getNewId(),
-				new HashMap<Long, Integer>(), bag1, bag2);
-
-		union1.prepareForMultipleReadings();
-
-		Iterator<RGLValue> it = union1.iterator();
-		it.next();
-//		for (int i = 0; i < 50; ++i) {
-//			it.next();
-//		}
-
-		AbstractBagValue union2 = thereAndBack(union1).asBag();
-		
-//		printBag(union1);
-		System.out.println();
-		printBag(union3);
-//		assertTrue(sameDoubleBags(union1, union2));
-		assertTrue(sameDoubleBags(union2, union3));
-		assertTrue(sameDoubleBags(union2, union3));
+		// for (RGLValue v : record3.get("a").asBag()) {
+		// System.out.println(v);
+		// }
 	}
+
+//	@Test
+//	public void testUnionBag() {
+//		RenewablyIterableBag bag1 = getBagOfDouble();
+//		RenewablyIterableBag bag2 = getBagOfDouble();
+//
+//		UnionBagValue union1 = BagUnion.createUnionBag(ValueFactory.getNewId(),
+//				new HashMap<Long, Integer>(), bag1, bag2);
+//
+//		UnionBagValue union3 = BagUnion.createUnionBag(ValueFactory.getNewId(),
+//				new HashMap<Long, Integer>(), bag1, bag2);
+//
+//		union1.prepareForMultipleReadings();
+//
+//		Iterator<RGLValue> it = union1.iterator();
+//		it.next();
+//		// for (int i = 0; i < 50; ++i) {
+//		// it.next();
+//		// }
+//
+//		AbstractBagValue union2 = thereAndBack(union1).asBag();
+//
+//		// printBag(union1);
+//		System.out.println();
+//		printBag(union3);
+//		// assertTrue(sameDoubleBags(union1, union2));
+//		assertTrue(sameDoubleBags(union2, union3));
+//		assertTrue(sameDoubleBags(union2, union3));
+//	}
 
 	@Test
 	public void testDiskListBinding() {
@@ -290,41 +322,41 @@ public class BindingsTest {
 
 	}
 
-	@Test
-	public void testFilterFunction() {
-		RenewablyIterableBag inputBag = getBagOfDoubleAndNull();
-
-		BagValue b1 = FilterFunction.createFilteringBag(
-				ValueFactory.getNewId(), inputBag, new NotNull());
-
-		BagValue b2 = FilterFunction.createFilteringBag(
-				ValueFactory.getNewId(), inputBag, new NotNull());
-		
-		BagValue b3 = FilterFunction.createFilteringBag(
-				ValueFactory.getNewId(), inputBag, new NotNull());
-		
-		BagValue b4 = FilterFunction.createFilteringBag(
-				ValueFactory.getNewId(), inputBag, new NotNull());
-
-		b1.prepareForMultipleReadings();
-		Iterator<RGLValue> it;
-
-		it = b1.asBag().iterator();
-
-		for (int i = 0; i < 2; ++i) {
-			it.next();
-		}
-
-		it = b1.asBag().iterator();
-
-		for (int i = 0; i < 5; ++i) {
-			it.next();
-		}
-
-		AbstractBagValue c1 = thereAndBack(b1).asBag();
-		AbstractBagValue c2 = thereAndBack(b2).asBag();
-
-		assertTrue("Bags have different contents", sameDoubleBags(b3, c1));
-		assertTrue("Bags have different contents", sameDoubleBags(b4, c2));
-	}
+//	@Test
+//	public void testFilterFunction() {
+//		RenewablyIterableBag inputBag = getBagOfDoubleAndNull();
+//
+//		BagValue b1 = FilterFunction.createFilteringBag(
+//				ValueFactory.getNewId(), inputBag, new NotNull());
+//
+//		BagValue b2 = FilterFunction.createFilteringBag(
+//				ValueFactory.getNewId(), inputBag, new NotNull());
+//
+//		BagValue b3 = FilterFunction.createFilteringBag(
+//				ValueFactory.getNewId(), inputBag, new NotNull());
+//
+//		BagValue b4 = FilterFunction.createFilteringBag(
+//				ValueFactory.getNewId(), inputBag, new NotNull());
+//
+//		b1.prepareForMultipleReadings();
+//		Iterator<RGLValue> it;
+//
+//		it = b1.asBag().iterator();
+//
+//		for (int i = 0; i < 2; ++i) {
+//			it.next();
+//		}
+//
+//		it = b1.asBag().iterator();
+//
+//		for (int i = 0; i < 5; ++i) {
+//			it.next();
+//		}
+//
+//		AbstractBagValue c1 = thereAndBack(b1).asBag();
+//		AbstractBagValue c2 = thereAndBack(b2).asBag();
+//
+//		assertTrue("Bags have different contents", sameDoubleBags(b3, c1));
+//		assertTrue("Bags have different contents", sameDoubleBags(b4, c2));
+//	}
 }
