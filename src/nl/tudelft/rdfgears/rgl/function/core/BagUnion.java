@@ -136,7 +136,7 @@ public class BagUnion extends NNRCFunction {
 				RenewablyIterableBag bag1, RenewablyIterableBag bag2) {
 			this(bag1, bag2);
 			this.myId = id;
-			this.iteratorPosition = iteratorPositions;
+//			this.iteratorPosition = iteratorPositions;
 		}
 
 		private UnionBagValue(long id, Map<Long, Integer> iteratorPositions,

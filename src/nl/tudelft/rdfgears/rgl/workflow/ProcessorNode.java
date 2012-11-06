@@ -12,6 +12,10 @@ public abstract class ProcessorNode extends WorkflowNode {
 		super(id);
 	}
 	
+	protected ProcessorNode() {
+		
+	}
+	
 	public void setPath(String path){
 		this.path = path;
 	}

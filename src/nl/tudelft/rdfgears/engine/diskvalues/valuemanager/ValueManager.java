@@ -119,4 +119,7 @@ public class ValueManager {
 		valueManager.shutDown();
 	}
 
+	public static Map<Long, Integer> getIteratorPositionsMap() {
+		return valueManager.getIteratorPositionsMap();
+	}
 }

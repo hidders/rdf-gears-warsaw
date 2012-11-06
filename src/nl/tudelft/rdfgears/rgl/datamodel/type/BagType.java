@@ -1,7 +1,5 @@
 package nl.tudelft.rdfgears.rgl.datamodel.type;
 
-
-
 public class BagType extends RGLType {
 
 	private RGLType elemType = null;

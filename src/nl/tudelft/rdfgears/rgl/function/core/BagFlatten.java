@@ -138,7 +138,7 @@ public class BagFlatten extends NNRCFunction {
 				RenewablyIterableBag outerBag) {
 			this(outerBag);
 			this.myId = id;
-			this.iteratorPosition = iteratorPosition;
+//			this.iteratorPosition = iteratorPosition;
 		}
 
 		private FlattenedBagValue(long id, Map<Long, Integer> iteratorPosition,

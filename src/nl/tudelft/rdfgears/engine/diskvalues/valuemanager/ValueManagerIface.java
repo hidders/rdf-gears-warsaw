@@ -84,5 +84,7 @@ public interface ValueManagerIface {
 	void updateValue(RGLValue value);
 
 	void shutDown();
-
+	
+	public Map<Long, Integer> getIteratorPositionsMap();
+	
 }

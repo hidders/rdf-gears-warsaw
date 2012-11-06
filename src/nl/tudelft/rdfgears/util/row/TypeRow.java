@@ -1,11 +1,13 @@
 package nl.tudelft.rdfgears.util.row;
 
+import java.io.Serializable;
+
 import nl.tudelft.rdfgears.rgl.datamodel.type.RGLType;
 
 
 
 
-public class TypeRow extends HashRow<RGLType> {
+public class TypeRow extends HashRow<RGLType> implements Serializable {
 	
 	/**
 	 * this TypeRow is a supertype of otherTypeRow if every field in this TypeRow exists 

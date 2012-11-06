@@ -21,7 +21,11 @@ public abstract class WorkflowNode {
 	 * OutputPort; and then we can do more clever diagnostics on which nodes are reading from us *outside* the
 	 * workflow (useful for optimization) 
 	 */
-	private Set<InputPort> outputReaders = null; 
+	private Set<InputPort> outputReaders = null;
+	
+	protected WorkflowNode() {
+		//nothing to do here - for the sake of serialization
+	}
 	
 	/**
 	 * Instantiate a workflow node with given id. If id==null, generate one. 

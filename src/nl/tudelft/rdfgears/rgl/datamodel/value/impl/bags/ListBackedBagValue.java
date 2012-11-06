@@ -23,7 +23,7 @@ public class ListBackedBagValue extends OrderedBagValue {
 	public ListBackedBagValue(long id, Map<Long, Integer> iteratorPositions,
 			List<RGLValue> list) {
 		this(id, list);
-		this.iteratorPosition = iteratorPositions;
+//		this.iteratorPosition = iteratorPositions;
 	}
 	
 	public ListBackedBagValue(long id, List<RGLValue> list) {

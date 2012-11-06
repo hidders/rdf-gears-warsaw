@@ -20,7 +20,7 @@ public class SingletonBag extends OrderedBagValue {
 	public SingletonBag(Long id, Map<Long, Integer> iteratorPosition, RGLValue element) {
 		this(element);
 		this.myId = id;
-		this.iteratorPosition = iteratorPosition;
+//		this.iteratorPosition = iteratorPosition;
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.rgl.workflow;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ import nl.tudelft.rdfgears.util.row.ValueRow;
  * @author Eric Feliksik
  *
  */
-public class FunctionProcessor extends ProcessorNode {
+public class FunctionProcessor extends ProcessorNode implements Serializable {
 	
 	
 	private int iterationCounter = 0; // remove this, diagnostic
@@ -65,6 +66,10 @@ public class FunctionProcessor extends ProcessorNode {
 	 */
 	public FunctionProcessor(RGLFunction function){
 		this(function, null);
+	}
+	
+	protected FunctionProcessor() {
+		
 	}
 	
 	public FunctionProcessor(RGLFunction function, String id){

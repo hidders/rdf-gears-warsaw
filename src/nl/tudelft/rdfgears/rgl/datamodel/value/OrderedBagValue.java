@@ -1,13 +1,12 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import nl.tudelft.rdfgears.engine.Engine;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.RenewablyIterableBag;
 import nl.tudelft.rdfgears.util.RenewableIterator;
 
@@ -18,20 +17,20 @@ public abstract class OrderedBagValue extends BagValue implements
 	static Map<Long, Integer> cartes = new HashMap<Long, Integer>();
 	public static StringBuffer buffer = new StringBuffer(40000);
 
-	protected Map<Long, Integer> iteratorPosition = new HashMap<Long, Integer>();
+//	protected Map<Long, Integer> iteratorPosition = new HashMap<Long, Integer>();
 
 	public final Map<Long, Integer> getIteratorMap() {
-		return iteratorPosition;
+		return ValueManager.getIteratorPositionsMap();
 	}
 
 	@Override
 	public final RenewableIterator<RGLValue> renewableIterator(long id) {
 		int pointAt;
-		if (!iteratorPosition.containsKey(id)) {
-			iteratorPosition.put(id, 0);
+		if (!ValueManager.getIteratorPositionsMap().containsKey(id)) {
+			ValueManager.getIteratorPositionsMap().put(id, 0);
 			pointAt = 0;
 		} else {
-			pointAt = iteratorPosition.get(id);//Math.max(iteratorPosition.get(id) - 1 , 0);
+			pointAt = ValueManager.getIteratorPositionsMap().get(id);//Math.max(iteratorPosition.get(id) - 1 , 0);
 			// this way, we gave the last element of the last iteration again,
 			// if you don't want it - simply skip it.
 		}
@@ -83,7 +82,7 @@ public abstract class OrderedBagValue extends BagValue implements
 				buffer.append("\n");
 //				Engine.getLogger().warn(it.next() + "," + (it.hasNext() ? it.next() : 0));
 			}
-			iteratorPosition.put(id, position);
+			ValueManager.getIteratorPositionsMap().put(id, position);
 			return innerIterator.next();
 		}
 

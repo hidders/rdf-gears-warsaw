@@ -22,6 +22,7 @@ public abstract class AbstractValueManager implements ValueManagerIface {
 	private List<Query> queryList = new ArrayList<Query>();
 	private Map<Query, Integer> queryMap = new HashMap<Query, Integer>();
 	private Map<Long, Map<String, AbstractCategoryBag>> categoryBagMaps = new HashMap<Long, Map<String, AbstractCategoryBag>>();
+	private Map<Long, Integer> iteratorPositionsMap = new HashMap<Long, Integer>();
 
 	public AbstractValueManager() {
 		super();
@@ -97,6 +98,11 @@ public abstract class AbstractValueManager implements ValueManagerIface {
 	protected RGLValue readValue(long id) {
 		TupleBinding<RGLValue> encapsulatedBinding = new EncapsulatedBinding(id);
 		return encapsulatedBinding.entryToObject(DatabaseManager.getComplexEntry(id));
+	}
+
+	@Override
+	public Map<Long, Integer> getIteratorPositionsMap() {
+		return iteratorPositionsMap;
 	}
 
 }

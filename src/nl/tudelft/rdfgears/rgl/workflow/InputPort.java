@@ -1,5 +1,7 @@
 package nl.tudelft.rdfgears.rgl.workflow;
 
+import java.io.Serializable;
+
 import nl.tudelft.rdfgears.rgl.datamodel.type.RGLType;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.exception.WorkflowCheckingException;
@@ -9,7 +11,7 @@ import nl.tudelft.rdfgears.rgl.exception.WorkflowCheckingException;
  * @author Eric Feliksik
  *
  */
-public class InputPort implements Comparable {
+public class InputPort implements Comparable, Serializable {
 	private String portName;
 	private FunctionProcessor proc;
 	private WorkflowNode inputProcessor;

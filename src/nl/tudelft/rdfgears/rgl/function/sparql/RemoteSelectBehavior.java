@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.rgl.function.sparql;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -108,7 +109,7 @@ public class RemoteSelectBehavior extends AbstractSelectBehavior {
 				ValueRow inputRow, String endpointURI) {
 			this(query, inputRow, endpointURI);
 			this.myId = id;
-			this.iteratorPosition = iteratorPosition;
+//			this.iteratorPosition = iteratorPosition;
 		}
 
 		public BatchedRemoteQueryingBagValue(long id,

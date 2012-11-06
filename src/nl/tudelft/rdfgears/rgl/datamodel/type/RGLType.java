@@ -1,5 +1,7 @@
 package nl.tudelft.rdfgears.rgl.datamodel.type;
 
+import java.io.Serializable;
+
 /**
  * TODO: It is probably nicer to *NOT* check the types by doing 'someType instanceof BagType' 
  * but rather by using some functions .isBagType(), .isRecordType(), etc.
@@ -7,7 +9,7 @@ package nl.tudelft.rdfgears.rgl.datamodel.type;
  * @author Eric Feliksik
  *
  */
-public abstract class RGLType {
+public abstract class RGLType implements Serializable {
 	public abstract boolean isType(RGLType type);
 	public abstract boolean isSupertypeOf(RGLType otherType);
 	
