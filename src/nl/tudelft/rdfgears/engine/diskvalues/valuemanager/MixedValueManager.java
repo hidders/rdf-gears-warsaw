@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
+import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,11 +12,12 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
  * @author Tomasz Traczyk
  * 
  */
-public class LRUValueManager extends AbstractBDBValueManager {
+public class MixedValueManager extends AbstractBDBValueManager {
 	private Map<Long, RGLValueWrapper> valuesCache = new HashMap<Long, RGLValueWrapper>();
+	private Map<Long, SoftReference<RGLValueWrapper>> softValuesCache = new HashMap<Long, SoftReference<RGLValueWrapper>>();
 	private TreeMap<Long, Long> lastUse = new TreeMap<Long, Long>();
 
-	private int valuesCacheSize = 1000;
+	private int valuesCacheSize = 100;
 
 	private void putIntoCache(RGLValueWrapper v) {
 		if (valuesCache.size() == valuesCacheSize) {
@@ -23,6 +25,7 @@ public class LRUValueManager extends AbstractBDBValueManager {
 			lastUse.remove(lruId);
 			RGLValueWrapper lruV = valuesCache.remove(lruId);
 			dumpValue(lruV);
+			softValuesCache.put(lruId, new SoftReference<RGLValueWrapper>(lruV));
 		}
 		valuesCache.put(v.getRglValue().getId(), v);
 		lastUse.put(v.getRglValue().getId(), System.currentTimeMillis());
@@ -37,10 +40,15 @@ public class LRUValueManager extends AbstractBDBValueManager {
 		RGLValueWrapper fetchedValue;
 		fetchedValue = valuesCache.get(id);
 		if (fetchedValue == null) {
-			fetchedValue = readValue(id);
-			putIntoCache(fetchedValue);
+			SoftReference<RGLValueWrapper> ref = softValuesCache.get(id);
+			if (ref == null) {
+				fetchedValue = readValue(id);
+				softValuesCache.put(id, new SoftReference<RGLValueWrapper>(fetchedValue));
+			} else {
+				fetchedValue = ref.get();
+			}
+			
 		}
-		lastUse.put(id, System.currentTimeMillis());
 		return fetchedValue.getRglValue();
 	}
 

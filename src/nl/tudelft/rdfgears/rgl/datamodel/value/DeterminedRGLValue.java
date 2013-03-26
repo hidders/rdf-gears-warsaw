@@ -6,6 +6,7 @@ import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.JenaRDFConstants;
 import nl.tudelft.rdfgears.engine.ValueFactory;
 import nl.tudelft.rdfgears.engine.bindings.MemoryBinding;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractBagValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.ifaces.AbstractRecordValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.visitors.RGLValueVisitor;
@@ -169,5 +170,5 @@ public abstract class DeterminedRGLValue implements RGLValue, Serializable {
 	 * Test whether this is an Error value. 
 	 */
 	public boolean isNull(){ return false ; }
-	
+
 }

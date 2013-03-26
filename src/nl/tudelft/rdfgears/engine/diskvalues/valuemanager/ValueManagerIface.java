@@ -85,6 +85,6 @@ public interface ValueManagerIface {
 
 	void shutDown();
 	
-	public Map<Long, Integer> getIteratorPositionsMap();
+	Map<Long, Integer> getIteratorPositionsMap();
 	
 }

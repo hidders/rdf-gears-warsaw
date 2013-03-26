@@ -141,7 +141,7 @@ public class DiskList implements List<RGLValue>, Serializable {
 	 * @throws Exception
 	 */
 	public DiskList() {
-		this(100);
+		this(1000);
 	}
 
 	/**

@@ -35,8 +35,8 @@ public class DiskValueRowIterator extends AbstractValueRowIterator {
 
 	@Override
 	protected Iterator<RGLValue> getBagIterator(String name) {
-		Iterator<RGLValue> it = ((RenewablyIterableBag) originalInputs.get(name).asBag())
-		.renewableIterator(inputIterIdMap.get(name));
+		Iterator<RGLValue> it = ((RenewablyIterableBag) originalInputs
+				.get(name).asBag()).renewableIterator(inputIterIdMap.get(name));
 		return it;
 	}
 

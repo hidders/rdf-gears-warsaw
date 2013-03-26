@@ -3,13 +3,13 @@ package nl.tudelft.rdfgears.rgl.function.core;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.ValueFactory;
 import nl.tudelft.rdfgears.engine.WorkflowLoader;
 import nl.tudelft.rdfgears.engine.bindings.CategoryBagBinding;
@@ -292,7 +292,7 @@ public class BagCategorize extends AtomicRGLFunction {
 		private String category; /* the category for which I am a bag. */
 
 		/** this implementation can only have ONE iterator */
-		private transient CategoryBagIterator instantiatedIterator = new CategoryBagIterator();
+		private CategoryBagIterator instantiatedIterator = new CategoryBagIterator();
 		private boolean iteratorHasBeenRequested = false;
 		private RGLValue inputBag;
 		private RGLFunction categorizer;
@@ -398,7 +398,7 @@ public class BagCategorize extends AtomicRGLFunction {
 		 * @author Eric Feliksik
 		 * 
 		 */
-		class CategoryBagIterator implements Iterator<RGLValue> {
+		class CategoryBagIterator implements Iterator<RGLValue>, Serializable {
 
 			/*
 			 * A stack as a buffer for the pushed values in this category.

@@ -2,6 +2,7 @@ package nl.tudelft.rdfgears.rgl.workflow;
 
 import nl.tudelft.rdfgears.engine.ValueFactory;
 import nl.tudelft.rdfgears.engine.bindings.LazyRGLBinding;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.BooleanValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.GraphValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.LiteralValue;
@@ -217,7 +218,6 @@ public class LazyRGLValue implements RGLValue  {
 	public TupleBinding<RGLValue> getBinding() {
 		return new LazyRGLBinding(cachedResultValue, function, inputRow);
 	}
-
 	
 //	
 //	equals not implemented for now, comparing bags is kind of tricky (occurence frequency, etc)

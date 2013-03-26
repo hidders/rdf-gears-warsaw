@@ -67,20 +67,20 @@ public abstract class OrderedBagValue extends BagValue implements
 		public RGLValue next() {
 			position++;
 			{ //debug, do skasowania
-				OrderedBagValue.cartes.put(OrderedBagValue.this.myId, position);
-//				List<Integer> list = Engine.diagnostic.get(cartes.get(807l) == null ? 0 : cartes.get(807l));
-//				if (list == null) {
-//					list = new ArrayList<Integer>(200);
-//					Engine.diagnostic.put(cartes.get(807l), list);
+//				OrderedBagValue.cartes.put(OrderedBagValue.this.myId, position);
+////				List<Integer> list = Engine.diagnostic.get(cartes.get(807l) == null ? 0 : cartes.get(807l));
+////				if (list == null) {
+////					list = new ArrayList<Integer>(200);
+////					Engine.diagnostic.put(cartes.get(807l), list);
+////				}
+////				list.add(cartes.get(1409l));
+//				Iterator<Integer> it = OrderedBagValue.cartes.values().iterator();
+//				buffer.append("\t");
+//				for (Entry<Long, Integer> entry : cartes.entrySet()) {
+//					buffer.append("<" + entry.getKey() + ":" + entry.getValue() + ":" + (entry.getKey() == myId ? id : "") + ">\t");
 //				}
-//				list.add(cartes.get(1409l));
-				Iterator<Integer> it = OrderedBagValue.cartes.values().iterator();
-				buffer.append("\t");
-				for (Entry<Long, Integer> entry : cartes.entrySet()) {
-					buffer.append("<" + entry.getKey() + ":" + entry.getValue() + ":" + (entry.getKey() == myId ? id : "") + ">\t");
-				}
-				buffer.append("\n");
-//				Engine.getLogger().warn(it.next() + "," + (it.hasNext() ? it.next() : 0));
+//				buffer.append("\n");
+////				Engine.getLogger().warn(it.next() + "," + (it.hasNext() ? it.next() : 0));
 			}
 			ValueManager.getIteratorPositionsMap().put(id, position);
 			return innerIterator.next();

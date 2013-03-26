@@ -45,11 +45,14 @@ public class Config {
 	
 
 	public int getRemoteSparqlSelectBatchSize() {
-		try {
-			return Integer.parseInt(configMap.getProperty("remote_sparql_select_batchsize", "throw parse error"));
-		} catch (NumberFormatException e){
-			return 2000; // do not batch
-		} 
+		return 2000;
+//		try {
+//			System.out.println(Integer.parseInt(configMap.getProperty("remote_sparql_select_batchsize", "throw parse error")));
+//			return Integer.parseInt(configMap.getProperty("remote_sparql_select_batchsize", "throw parse error"));
+//		} catch (NumberFormatException e){
+//			System.out.println(e);
+//			return 2000; // do not batch
+//		} 
 	}
 	
 	public String getPathToWorkFiles(){

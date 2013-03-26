@@ -149,7 +149,7 @@ public abstract class StreamingBagValue extends OrderedBagValue {
 			if (position == 0) {
 				return iterator();
 			} else {
-				assert (position < storedList.size()); // this is because we
+				assert (position <= storedList.size()); // this is because we
 														// only
 														// use it while renewing
 														// iteration

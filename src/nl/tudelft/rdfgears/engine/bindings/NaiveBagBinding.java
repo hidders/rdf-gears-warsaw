@@ -30,7 +30,7 @@ public class NaiveBagBinding extends ComplexBinding {
 		public void objectToEntry(RGLValue value, TupleOutput out) {
 			AbstractBagValue bag = value.asBag();
 			out.writeInt(bag.size());
-			Iterator<RGLValue> it =bag.iterator();
+			Iterator<RGLValue> it = bag.iterator();
 			for (RGLValue element : bag) {
 				out.writeString(element.getClass().getName());
 				element.getBinding().objectToEntry(element, out);

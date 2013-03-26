@@ -1,5 +1,8 @@
 package nl.tudelft.rdfgears.rgl.function.sparql;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,8 +20,11 @@ import nl.tudelft.rdfgears.util.RenewableIterator;
 import nl.tudelft.rdfgears.util.row.FieldIndexMap;
 import nl.tudelft.rdfgears.util.row.ValueRow;
 
+import arq.query;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.sparql.serializer.QueryLimitRewriter;
 import com.sleepycat.bind.tuple.TupleBinding;
@@ -57,9 +63,9 @@ public class RemoteSelectBehavior extends AbstractSelectBehavior {
 			while (iterator.hasNext())
 				iterator.next();
 
-			Engine.getLogger()
-					.debug("remote query gave " + queryingBagValue.size()
-							+ " results");
+//			Engine.getLogger()
+//					.debug("remote query gave " + queryingBagValue.size()
+//							+ " results");
 		}
 
 		return queryingBagValue;
@@ -88,7 +94,7 @@ public class RemoteSelectBehavior extends AbstractSelectBehavior {
 		private boolean doQueryBatching = QUERY_BATCH_SIZE != 0;
 
 		private FieldIndexMap queryFieldMap;
-		private Query originalQuery;
+		private transient Query originalQuery;
 		private ValueRow inputRow;
 		private String endpointURI;
 
@@ -141,10 +147,19 @@ public class RemoteSelectBehavior extends AbstractSelectBehavior {
 		public int size() {
 			return BagValue.getNaiveSize(this);
 		}
+		
+		private void writeObject(ObjectOutputStream out)  throws IOException {
+			out.writeUTF(originalQuery.toString(Syntax.syntaxSPARQL));
+		}
+		
+		private void readObject(ObjectInputStream in) 
+				throws IOException, ClassNotFoundException {
+			originalQuery = QueryFactory.create(in.readUTF(), Syntax.syntaxSPARQL);
+		}
 
 		private int nextElemNr = 0;
 
-		class RemoteQueryIter implements RenewableIterator<RGLValue> {
+		class RemoteQueryIter implements RenewableIterator<RGLValue>, Serializable {
 			/*
 			 * the next element the iterator points to
 			 */

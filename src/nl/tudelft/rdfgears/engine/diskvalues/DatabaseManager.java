@@ -7,6 +7,7 @@ import java.util.Map;
 import nl.tudelft.rdfgears.engine.Config;
 
 import com.sleepycat.bind.EntryBinding;
+import com.sleepycat.bind.serial.StoredClassCatalog;
 import com.sleepycat.bind.tuple.TupleBinding;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.DatabaseConfig;
@@ -21,6 +22,10 @@ public class DatabaseManager {
 
 	private static Map<String, Database> databases;
 	private static Database complexStore;
+	
+	private static Database myClassDb;
+	
+	private static StoredClassCatalog storedClassCatalog;
 
 	public static void initialize() {
 		databases = new HashMap<String, Database>();
@@ -35,6 +40,8 @@ public class DatabaseManager {
 		complexStore = (dbEnvironment.openDatabase(null, "complexStore",
 				dbConfig));
 		dbConfig.setSortedDuplicates(false);
+		myClassDb = dbEnvironment.openDatabase(null, "classDb", 
+	            dbConfig); 
 	}
 
 	public static Database openListDatabase(String name) {
@@ -54,7 +61,7 @@ public class DatabaseManager {
 
 	public static void cleanUp() {
 		complexStore.close();
-
+		myClassDb.close();
 		for (Database db : databases.values())
 			if (db != null)
 				db.close();
@@ -84,6 +91,10 @@ public class DatabaseManager {
 		DatabaseEntry data = new DatabaseEntry();
 		complexStore.get(null, key, data, LockMode.DEFAULT);
 		return data;
+	}
+	
+	public static StoredClassCatalog getClassCatalog() {
+		return new StoredClassCatalog(myClassDb);
 	}
 	
 }

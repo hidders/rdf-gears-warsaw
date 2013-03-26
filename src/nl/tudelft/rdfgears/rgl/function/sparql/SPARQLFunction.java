@@ -1,10 +1,7 @@
 package nl.tudelft.rdfgears.rgl.function.sparql;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.Map;
 
-import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.type.GraphOrRDFType;
 import nl.tudelft.rdfgears.rgl.datamodel.type.RGLType;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
@@ -12,7 +9,6 @@ import nl.tudelft.rdfgears.rgl.exception.FunctionConfigurationException;
 import nl.tudelft.rdfgears.rgl.function.SimplyTypedRGLFunction;
 import nl.tudelft.rdfgears.util.row.ValueRow;
 
-import com.hp.hpl.jena.datatypes.xsd.impl.XSDDouble;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QueryParseException;
@@ -125,7 +121,6 @@ public class SPARQLFunction extends SimplyTypedRGLFunction {
 		
 		System.err.println(queryString);
 		
-//		queryString = queryString.replace("?b", "<http://chem2bio2rdf.org/uniprot/resource/uniprot/P04062>");
 		setQuery(computedQueryString);
 		configureBehavior();
 		

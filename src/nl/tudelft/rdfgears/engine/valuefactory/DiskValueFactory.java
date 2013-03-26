@@ -46,12 +46,13 @@ public class DiskValueFactory extends MemoryValueFactory {
 
 	public DiskValueFactory() {
 		Engine.getLogger().info("DiskValueFactory");
-		DatabaseManager.initialize(); // FIXME: only for testing, initialization
+//		DatabaseManager.initialize(); // FIXME: only for testing, initialization
 		// should in the main method.
 	}
 
 	@Override
 	public List<RGLValue> createBagBackingList() {
+//		return new DiskList();
 		return new ArrayList<RGLValue>();
 	}
 

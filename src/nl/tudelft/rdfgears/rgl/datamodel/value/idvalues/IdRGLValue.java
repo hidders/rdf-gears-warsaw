@@ -112,11 +112,7 @@ public class IdRGLValue implements RGLValue {
 	}
 
 	@Override
-	public boolean isNull() {
-		if (fetch() == null) {
-			System.out.print("");
-		}
-			
+	public boolean isNull() {			
 		return fetch().isNull();
 	}
 
@@ -150,5 +146,5 @@ public class IdRGLValue implements RGLValue {
 	public String toString() {
 		return fetch().toString();
 	}
-
+	
 }

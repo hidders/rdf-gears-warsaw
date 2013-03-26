@@ -207,22 +207,25 @@ public class MemoryLiteralValue extends LiteralValue {
 	 */
 	@Override
 	public int compareTo(RGLValue v2) {
-		try {
-			// System.out.println("Node is: "+ ((RDFValue) that).getRDFNode());
-			double thatDouble = ((RDFValue) v2).asLiteral().getValueDouble();
-			double thisDouble = this.asLiteral().getValueDouble();
-
-			if (thisDouble == thatDouble)
-				return 0;
-			else if (thisDouble < thatDouble)
-				return -1;
-			else
-				// (thisDouble>thatDouble)
-				return 1;
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			throw new ComparisonNotDefinedException(this, v2);
-		}
+		
+		return asLiteral().getValueString().compareTo(v2.asLiteral().getValueString());
+		
+//		try {
+//			// System.out.println("Node is: "+ ((RDFValue) that).getRDFNode());
+//			double thatDouble = ((RDFValue) v2).asLiteral().getValueDouble();
+//			double thisDouble = this.asLiteral().getValueDouble();
+//
+//			if (thisDouble == thatDouble)
+//				return 0;
+//			else if (thisDouble < thatDouble)
+//				return -1;
+//			else
+//				// (thisDouble>thatDouble)
+//				return 1;
+//		} catch (RuntimeException e) {
+//			e.printStackTrace();
+//			throw new ComparisonNotDefinedException(this, v2);
+//		}
 	}
 
 	/**

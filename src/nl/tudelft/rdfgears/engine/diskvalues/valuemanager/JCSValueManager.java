@@ -1,8 +1,5 @@
 package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 
 import org.apache.jcs.JCS;
@@ -13,7 +10,6 @@ public class JCSValueManager extends AbstractValueManager {
 
 	private static final String CACHE_REGION_NAME = "gears";
 	private JCS cache;
-	private Set<Long> registered = new HashSet<Long>();
 	private Logger logger = Logger.getLogger("manager");
 
 	public JCSValueManager() {
@@ -29,7 +25,6 @@ public class JCSValueManager extends AbstractValueManager {
 	public void registerValue(RGLValue value) {
 		try {
 			cache.put(Long.toString(value.getId()), value);
-			registered.add(value.getId());
 		} catch (CacheException e) {
 			throw new RuntimeException(e);
 		}

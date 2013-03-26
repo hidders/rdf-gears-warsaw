@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nl.tudelft.rdfgears.engine.bindings.EncapsulatedBinding;
-import nl.tudelft.rdfgears.engine.diskvalues.DatabaseManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.function.RGLFunction;
 import nl.tudelft.rdfgears.rgl.function.core.BagCategorize.AbstractCategoryBag;
 
 import com.hp.hpl.jena.query.Query;
-import com.sleepycat.bind.tuple.TupleBinding;
 
 public abstract class AbstractValueManager implements ValueManagerIface {
 
@@ -23,7 +20,7 @@ public abstract class AbstractValueManager implements ValueManagerIface {
 	private Map<Query, Integer> queryMap = new HashMap<Query, Integer>();
 	private Map<Long, Map<String, AbstractCategoryBag>> categoryBagMaps = new HashMap<Long, Map<String, AbstractCategoryBag>>();
 	private Map<Long, Integer> iteratorPositionsMap = new HashMap<Long, Integer>();
-
+	
 	public AbstractValueManager() {
 		super();
 	}
@@ -89,20 +86,9 @@ public abstract class AbstractValueManager implements ValueManagerIface {
 		return memoryValuesMap.get(id);
 	}
 
-	protected void dumpValue(RGLValue value) {
-		if (value == null)
-			throw new RuntimeException();
-		new EncapsulatedBinding(value.getId()).writeComplex(value);
-	}
-
-	protected RGLValue readValue(long id) {
-		TupleBinding<RGLValue> encapsulatedBinding = new EncapsulatedBinding(id);
-		return encapsulatedBinding.entryToObject(DatabaseManager.getComplexEntry(id));
-	}
-
 	@Override
 	public Map<Long, Integer> getIteratorPositionsMap() {
 		return iteratorPositionsMap;
 	}
-
+	
 }

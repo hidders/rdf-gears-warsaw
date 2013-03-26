@@ -3,6 +3,7 @@ package nl.tudelft.rdfgears.engine.valuefactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.tudelft.rdfgears.engine.diskvalues.DiskList;
 import nl.tudelft.rdfgears.rgl.datamodel.value.BooleanValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.GraphValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.LiteralValue;

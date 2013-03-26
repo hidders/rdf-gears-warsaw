@@ -15,11 +15,6 @@ public class MemoryValueManager extends AbstractValueManager {
 	}
 
 	@Override
-	protected void dumpValue(RGLValue value) {
-		assert(false) : "MemoryValueManager should not dump any value";
-	}
-
-	@Override
 	public void updateValue(RGLValue value) {
 		// TODO Auto-generated method stub
 		

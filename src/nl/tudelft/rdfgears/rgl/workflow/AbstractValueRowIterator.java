@@ -41,6 +41,12 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 	 * This is possible if we are not used in a lazy context. */
 	private boolean recycleReturnRow = false;
 	
+	
+	/**
+	 * Diagnostic, to delete.
+	 */
+	private Integer count = 0;
+	
 	/**
 	 * Instantiate a ValueRowIterator; only tested with  recycleReturnRow==false, we may use it internally
 	 * so it should not be modified. 
@@ -82,7 +88,7 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 			
 			/* We must initialize doHaveNext */
 			
-			while(portIter.hasNext()){
+			while (portIter.hasNext()){
 				InputPort port = portIter.next();
 				String portName = port.getName();
 				
@@ -199,7 +205,7 @@ public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
 		this.doHaveNext = evenMore;
 		
 		previousRow = returnRow;
-		
+		++count;
 		return returnRow;
 	}
 

@@ -69,11 +69,13 @@ public class ValueXMLSerializer extends ValueSerializer {
 	public void visit(AbstractBagValue bag) {
 		try {   
 			xmlwriter.writeStartElement("bag");
-			
+			int counter = 0;
 			for (RGLValue elem : bag ){
 				elem.accept(this);
+				++counter;
+				if (counter % 1000 == 0)
+				System.err.println(counter);
 			}
-			
 			xmlwriter.writeEndElement(); // bag
 			
 		} catch (XMLStreamException e) {

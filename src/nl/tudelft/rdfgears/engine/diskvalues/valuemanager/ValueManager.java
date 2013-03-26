@@ -21,10 +21,12 @@ public class ValueManager {
 	private static ValueManagerIface valueManager = getValueManager();
 
 	private static ValueManagerIface getValueManager() {
-//		return new MemoryValueManager();
-		return new JCSValueManager();
+		return new MemoryValueManager();
+//		return new JCSValueManager();
 //		return new LRUValueManager();
 //		return new SoftValueManager();
+//		return new ChunksValueManager();
+//		return new MixedValueManager();
 	}
 
 	/**
@@ -88,6 +90,8 @@ public class ValueManager {
 		return valueManager.getMemoryValue(id);
 	}
 
+	static double maxMemoryUsed = 0;
+	
 	/**
 	 * Registers the given {@link RGLValue} in the manager - it will be ever
 	 * since available in the {@link #fetchValue(long)} method.
@@ -100,7 +104,7 @@ public class ValueManager {
 	}
 	
 	public static void updateValue(RGLValue value) { //FIXME #1 
-		valueManager.registerValue(value);
+//		valueManager.registerValue(value);
 	}
 
 	/**
@@ -114,7 +118,7 @@ public class ValueManager {
 	public static RGLValue fetchValue(long id) {
 		return valueManager.fetchValue(id);
 	}
-
+	
 	public static void shutDown() {
 		valueManager.shutDown();
 	}
