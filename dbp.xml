@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>dbp</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_23" x="450" y="450">
+<processor id="node_23" x="595" y="111">
+<function type="record-create">
+<config param="fields">a;b;</config>
+</function>
+<inputPort iterate="true" name="a">
+<source processor="node_24"/>
+</inputPort>
+<inputPort iterate="true" name="b">
+<source processor="node_24"/>
+</inputPort>
+</processor>
+<processor id="node_24" x="168" y="85">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://dbpedia.org/sparql]]></config>
+<config param="query"><![CDATA[PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>select distinct ?Concept where {[] dbpedia-owl:birthName ?Concept} LIMIT 740]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

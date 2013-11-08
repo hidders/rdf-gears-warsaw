@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>simple</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_4" x="450" y="450">
+<processor id="node_4" x="371" y="134">
+<function type="bag-singleton"/>
+<inputPort iterate="false" name="value">
+<source processor="node_3"/>
+</inputPort>
+</processor>
+<processor id="node_3" x="172" y="159">
+<function type="constant">
+<config param="value"><![CDATA["apple"@en]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

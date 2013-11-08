@@ -1,32 +1,42 @@
 package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
+import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
+public class SoftValueManager extends AbstractBDBValueManager implements SoftValueManagerIface {
 
-public class SoftValueManager extends AbstractBDBValueManager {
-	
-	private Map<Long, SoftReference<RGLValueWrapper>> valuesCache = new HashMap<Long, SoftReference<RGLValueWrapper>>();
-	private static Logger logger = LoggerFactory.getLogger(SoftValueManager.class);
+	private Map<Long, SoftRGLReference> valuesCache = new HashMap<Long, SoftRGLReference>();
+	private static Logger logger = LoggerFactory
+			.getLogger(SoftValueManager.class);
+	private ReferenceQueue<RGLValueWrapper> referenceQueue = new ReferenceQueue<RGLValueWrapper>();
+	private boolean alive = true;
+	private Thread cleanerThread;
+
+	public SoftValueManager() {
+		cleanerThread = new SoftCleanerThread(referenceQueue, this);
+		cleanerThread.setName("alaMaKota");
+		cleanerThread.start();
+	}
 
 	@Override
 	public void registerValue(RGLValue value) {
 		logger.debug("put");
 		RGLValueWrapper wrapper = new RGLValueWrapper(value, false);
 		putIntoCache(wrapper);
-		dumpValue(wrapper);
+//		dumpValue(wrapper);
 	}
 
 	@Override
 	public RGLValue fetchValue(long id) {
 		SoftReference<RGLValueWrapper> ref = valuesCache.get(id);
-		if (ref == null) {
-			System.err.println("readingValue");
+		if (ref == null || ref.get() == null) {
 			RGLValueWrapper fetchedValue = readValue(id);
 			putIntoCache(fetchedValue);
 			return fetchedValue.getRglValue();
@@ -34,21 +44,43 @@ public class SoftValueManager extends AbstractBDBValueManager {
 			return ref.get().getRglValue();
 		}
 	}
-	
+
 	private void putIntoCache(RGLValueWrapper value) {
-		valuesCache.put(value.getRglValue().getId(), new SoftReference<RGLValueWrapper>(value));
+		valuesCache.put(value.getRglValue().getId(), new SoftRGLReference(value, referenceQueue));
 	}
 
 	@Override
 	public void updateValue(RGLValue value) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void remove(long id) {
+		valuesCache.remove(id);
+	}
+
+	@Override
+	public boolean alive() {
+		return this.alive;
 	}
 
 	@Override
 	public void shutDown() {
-		// TODO Auto-generated method stub
-		
+		super.shutDown();
+		this.alive = false;
+		this.cleanerThread.interrupt();
+		try {
+			this.cleanerThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void finalize(RGLValueWrapper value) {
+		dumpValue(value);
 	}
 
 }

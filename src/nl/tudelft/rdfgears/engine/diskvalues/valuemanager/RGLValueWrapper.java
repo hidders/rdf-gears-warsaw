@@ -28,5 +28,12 @@ public class RGLValueWrapper implements Serializable {
 	public void setEverDumped(boolean everDumped) {
 		this.everDumped = everDumped;
 	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		ValueManager.finalize(this);
+	}
+	
+	
 	
 }

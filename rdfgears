@@ -37,10 +37,18 @@ CLASSPATH=$CLASSPATH:$LIBDIR/servlet-api-2.5.jar
 CLASSPATH=$CLASSPATH:$LIBDIR/jetty-all-7.0.2.v20100331.jar
 CLASSPATH=$CLASSPATH:$LIBDIR/stax-utils.jar
 CLASSPATH=$CLASSPATH:$LIBDIR/je-4.1.10.jar
+CLASSPATH=$CLASSPATH:$LIBDIR/jcs-1.3.jar
+CLASSPATH=$CLASSPATH:$LIBDIR/commons-logging-1.1.1.jar
+CLASSPATH=$CLASSPATH:$LIBDIR/concurrent.jar
+CLASSPATH=$CLASSPATH:$LIBDIR/postgresql-9.1-901.jdbc4.jar
+CLASSPATH=$CLASSPATH:${DIR}/conf/*
 
 
 # For now, just cd into the directory, as it's the only way we can 
 # find the options file
-cd $DIR 
+cd $DIR
 
-java -ea -Xmx750m -cp $CLASSPATH nl.tudelft.rdfgears.engine.RDFGears $@ 
+xmx=$1
+shift
+
+/usr/lib/jvm/jdk1.6.0_37/bin/java -Xshare:off $xmx -cp $CLASSPATH nl.tudelft.rdfgears.engine.RDFGears $@ 

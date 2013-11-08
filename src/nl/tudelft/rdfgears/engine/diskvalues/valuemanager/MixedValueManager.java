@@ -1,10 +1,11 @@
 package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
+import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 
@@ -12,23 +13,42 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
  * @author Tomasz Traczyk
  * 
  */
-public class MixedValueManager extends AbstractBDBValueManager {
-	private Map<Long, RGLValueWrapper> valuesCache = new HashMap<Long, RGLValueWrapper>();
-	private Map<Long, SoftReference<RGLValueWrapper>> softValuesCache = new HashMap<Long, SoftReference<RGLValueWrapper>>();
-	private TreeMap<Long, Long> lastUse = new TreeMap<Long, Long>();
+public class MixedValueManager extends AbstractBDBValueManager implements SoftValueManagerIface {
+	
+	private int valuesCacheSize = 1000;
+	
+	private ReferenceQueue<RGLValueWrapper> referenceQueue = new ReferenceQueue<RGLValueWrapper>();
+	
+	private Thread cleanerThread;
+	
+	private Map<Long, RGLValueWrapper> valuesCache = new LinkedHashMap<Long, RGLValueWrapper>(valuesCacheSize, 0.75f, true) {
 
-	private int valuesCacheSize = 100;
+		private static final long serialVersionUID = -7358692784318271466L;
+
+		@Override
+		protected boolean removeEldestEntry(Entry<Long, RGLValueWrapper> eldest) {
+			if (size() == valuesCacheSize) {
+				dumpValue(eldest.getValue());
+				softValuesCache.put(eldest.getValue().getRglValue().getId(), new SoftRGLReference(eldest.getValue(), referenceQueue));
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+	};
+	private Map<Long, SoftRGLReference> softValuesCache = new HashMap<Long, SoftRGLReference>();
+	
+	private boolean alive = true;
+	
+	public MixedValueManager() {
+		cleanerThread = new SoftCleanerThread(referenceQueue, this);
+		cleanerThread.setName("alaMaKota");
+		cleanerThread.start();
+	}
 
 	private void putIntoCache(RGLValueWrapper v) {
-		if (valuesCache.size() == valuesCacheSize) {
-			long lruId = leastRecentlyUsed(lastUse);
-			lastUse.remove(lruId);
-			RGLValueWrapper lruV = valuesCache.remove(lruId);
-			dumpValue(lruV);
-			softValuesCache.put(lruId, new SoftReference<RGLValueWrapper>(lruV));
-		}
 		valuesCache.put(v.getRglValue().getId(), v);
-		lastUse.put(v.getRglValue().getId(), System.currentTimeMillis());
 	}
 
 	public void registerValue(RGLValue value) {
@@ -41,29 +61,16 @@ public class MixedValueManager extends AbstractBDBValueManager {
 		fetchedValue = valuesCache.get(id);
 		if (fetchedValue == null) {
 			SoftReference<RGLValueWrapper> ref = softValuesCache.get(id);
-			if (ref == null) {
+			if (ref == null || ref.get() == null) {
 				fetchedValue = readValue(id);
-				softValuesCache.put(id, new SoftReference<RGLValueWrapper>(fetchedValue));
+				softValuesCache.put(id, new SoftRGLReference(fetchedValue, referenceQueue));
+//				putIntoCache(fetchedValue);
+				return fetchedValue.getRglValue();
 			} else {
-				fetchedValue = ref.get();
+				return ref.get().getRglValue();
 			}
-			
 		}
 		return fetchedValue.getRglValue();
-	}
-
-	private long leastRecentlyUsed(Map<Long, Long> lastUse) {
-		long min = Long.MAX_VALUE;
-		long id = -1;
-
-		for (Entry<Long, Long> e : lastUse.entrySet()) {
-			if (e.getValue() < min) {
-				min = e.getValue();
-				id = e.getKey();
-			}
-		}
-
-		return id;
 	}
 
 	@Override
@@ -73,8 +80,32 @@ public class MixedValueManager extends AbstractBDBValueManager {
 	}
 
 	@Override
-	public void shutDown() {
-		// TODO Auto-generated method stub
-		
+	public void remove(long id) {
+		softValuesCache.remove(id);
 	}
+
+	@Override
+	public boolean alive() {
+		// TODO Auto-generated method stub
+		return alive;
+	}
+	
+	@Override
+	public void shutDown() {
+		super.shutDown();
+		this.alive = false;
+		this.cleanerThread.interrupt();
+		try {
+			this.cleanerThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void finalize(RGLValueWrapper value) {
+//		dumpValue(value);
+	}
+
 }

@@ -13,12 +13,13 @@ public class ChunksValueManager extends AbstractBDBValueManager {
 	private Map<Long, RGLValueWrapper> valuesCache = new HashMap<Long, RGLValueWrapper>();
 	// private Set<Long> everDumped = new HashSet<Long>();
 
-	private int valuesCacheSize = 100000;
+	private int valuesCacheSize = 1000;
 
 	private void putIntoCache(RGLValueWrapper v) {
 		if (valuesCache.size() == valuesCacheSize) {
 			for (RGLValueWrapper e : valuesCache.values()) {
 				dumpValue(e);
+//				valuesCache.remove(e);
 			}
 			valuesCache.clear();
 		}
@@ -48,9 +49,4 @@ public class ChunksValueManager extends AbstractBDBValueManager {
 
 	}
 
-	@Override
-	public void shutDown() {
-		// TODO Auto-generated method stub
-
-	}
 }

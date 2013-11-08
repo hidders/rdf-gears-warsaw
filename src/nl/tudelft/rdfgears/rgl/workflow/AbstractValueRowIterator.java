@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.rgl.workflow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import nl.tudelft.rdfgears.util.row.ValueRow;
  * @author Eric Feliksik
  * 
  */
-public abstract class AbstractValueRowIterator implements Iterator<ValueRow> {
+public abstract class AbstractValueRowIterator implements Iterator<ValueRow>, Serializable {
 
 	/* a list of marked inputs, because we want to iterate in the same order every time */
 	private List<String> markedInputList = new ArrayList<String>();

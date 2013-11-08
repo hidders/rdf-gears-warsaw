@@ -91,4 +91,41 @@ public abstract class AbstractValueManager implements ValueManagerIface {
 		return iteratorPositionsMap;
 	}
 	
+	private int allCount = 0;
+	private int missCount = 0;
+	private int writeCount = 0;
+	
+	public void increaseAllCount() {
+		++allCount;
+	}
+	
+	public void increaseMissCount() {
+		++missCount;
+	}
+	
+	@Override
+	public int getAllCount() {
+		return allCount;
+	}
+	
+	@Override
+	public int getMissCount() {
+		return missCount;
+	}
+	
+	@Override
+	public void increaseWriteCount() {
+		++writeCount;
+	}
+	
+	@Override
+	public int getWriteCount() {
+		return writeCount;
+	}
+	
+	@Override
+	public void finalize(RGLValueWrapper value) {
+		//do nothing
+	}
+	
 }

@@ -1,0 +1,490 @@
+{{
+  (elem:1) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972590>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972590>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972590>", 
+      ]
+    }}, 
+  ]
+  (elem:2) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972591>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972591>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972591>", 
+      ]
+    }}, 
+  ]
+  (elem:3) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972598>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972598>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972598>", 
+      ]
+    }}, 
+  ]
+  (elem:4) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972599>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972599>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/11972599>", 
+      ]
+    }}, 
+  ]
+  (elem:5) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/23684981>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/23684981>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/23684981>", 
+      ]
+      (elem:3) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/23684981>", 
+      ]
+    }}, 
+  ]
+  (elem:6) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/2725829>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/2725829>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/2725829>", 
+      ]
+    }}, 
+  ]
+  (elem:7) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/31307>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/31307>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/31307>", 
+      ]
+    }}, 
+  ]
+  (elem:8) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246136>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246136>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246136>", 
+      ]
+    }}, 
+  ]
+  (elem:9) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246217>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246217>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/3246217>", 
+      ]
+    }}, 
+  ]
+  (elem:10) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/344116>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/344116>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/344116>", 
+      ]
+    }}, 
+  ]
+  (elem:11) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4347191>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4347191>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4347191>", 
+      ]
+    }}, 
+  ]
+  (elem:12) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4448684>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4448684>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/4448684>", 
+      ]
+    }}, 
+  ]
+  (elem:13) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5343445>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5343445>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5343445>", 
+      ]
+    }}, 
+  ]
+  (elem:14) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5397214>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5397214>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5397214>", 
+      ]
+    }}, 
+  ]
+  (elem:15) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5405414>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5405414>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5405414>", 
+      ]
+    }}, 
+  ]
+  (elem:16) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5754>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5754>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/5754>", 
+      ]
+    }}, 
+  ]
+  (elem:17) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603742>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603742>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603742>", 
+      ]
+      (elem:3) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603742>", 
+      ]
+      (elem:4) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603742>", 
+      ]
+    }}, 
+  ]
+  (elem:18) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603769>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603769>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603769>", 
+      ]
+    }}, 
+  ]
+  (elem:19) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603774>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603774>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603774>", 
+      ]
+    }}, 
+  ]
+  (elem:20) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603869>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603869>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603869>", 
+      ]
+      (elem:3) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603869>", 
+      ]
+      (elem:4) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603869>", 
+      ]
+    }}, 
+  ]
+  (elem:21) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603959>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603959>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6603959>", 
+      ]
+    }}, 
+  ]
+  (elem:22) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604026>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604026>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604026>", 
+      ]
+    }}, 
+  ]
+  (elem:23) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604223>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604223>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604223>", 
+      ]
+    }}, 
+  ]
+  (elem:24) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604241>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604241>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604241>", 
+      ]
+    }}, 
+  ]
+  (elem:25) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604242>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604242>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604242>", 
+      ]
+    }}, 
+  ]
+  (elem:26) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604243>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604243>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604243>", 
+      ]
+    }}, 
+  ]
+  (elem:27) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604245>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604245>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604245>", 
+      ]
+    }}, 
+  ]
+  (elem:28) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604260>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604260>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604260>", 
+      ]
+    }}, 
+  ]
+  (elem:29) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604274>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604274>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604274>", 
+      ]
+    }}, 
+  ]
+  (elem:30) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604290>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604290>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604290>", 
+      ]
+    }}, 
+  ]
+  (elem:31) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604301>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604301>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604301>", 
+      ]
+    }}, 
+  ]
+  (elem:32) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604306>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604306>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604306>", 
+      ]
+    }}, 
+  ]
+  (elem:33) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604313>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604313>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604313>", 
+      ]
+    }}, 
+  ]
+  (elem:34) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604380>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604380>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604380>", 
+      ]
+    }}, 
+  ]
+  (elem:35) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604390>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604390>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604390>", 
+      ]
+    }}, 
+  ]
+  (elem:36) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604392>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604392>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604392>", 
+      ]
+    }}, 
+  ]
+  (elem:37) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604441>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604441>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604441>", 
+      ]
+    }}, 
+  ]
+  (elem:38) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604444>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604444>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604444>", 
+      ]
+    }}, 
+  ]
+  (elem:39) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604458>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604458>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604458>", 
+      ]
+    }}, 
+  ]
+  (elem:40) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604461>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604461>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6604461>", 
+      ]
+    }}, 
+  ]
+  (elem:41) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6708864>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6708864>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/6708864>", 
+      ]
+    }}, 
+  ]
+  (elem:42) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/739027>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/739027>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/739027>", 
+      ]
+    }}, 
+  ]
+  (elem:43) = [ 
+    a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/761227>", 
+    group:{{
+      (elem:1) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/761227>", 
+      ]
+      (elem:2) = [ 
+        a:"<http://chem2bio2rdf.org/pubchem/resource/pubchem_compound/761227>", 
+      ]
+    }}, 
+  ]
+}}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>1ilustracja</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_789" x="746" y="664">
+<processor id="node_789" x="639" y="546">
+<function type="filter">
+<config param="implementation">workflow:1sql_rdf_size_filter</config>
+</function>
+<inputPort iterate="false" name="bag">
+<source processor="node_9"/>
+</inputPort>
+</processor>
+<processor id="node_9" x="460" y="543">
+<function type="bag-groupby">
+<config param="groupByField">a</config>
+</function>
+<inputPort iterate="false" name="bag_of_records">
+<source processor="node_10"/>
+</inputPort>
+</processor>
+<processor id="node_10" x="303" y="553">
+<function type="bag-flatten"/>
+<inputPort iterate="false" name="bag">
+<source processor="node_116"/>
+</inputPort>
+</processor>
+<processor id="node_116" x="90" y="542">
+<function type="sparql-endpoint">
+<config param="endpoint"/>
+<config param="query"><![CDATA[select cid from gi_cid where gi = ?;]]></config>
+</function>
+</processor>
+<processor id="node_115" x="778" y="321">
+<function type="record-project">
+<config param="projectField">gi</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_114"/>
+</inputPort>
+</processor>
+<processor id="node_114" x="614" y="320">
+<function type="record-project">
+<config param="projectField">gi_gene</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_113"/>
+</inputPort>
+</processor>
+<processor id="node_113" x="442" y="317">
+<function type="filter">
+<config param="implementation">workflow:1sql_rdf_filter</config>
+</function>
+<inputPort iterate="false" name="bag">
+<source processor="node_99"/>
+</inputPort>
+</processor>
+<processor id="node_99" x="266" y="296">
+<function type="record-create">
+<config param="fields">gi_gene;gene;</config>
+</function>
+<inputPort iterate="true" name="gi_gene">
+<source processor="node_74"/>
+</inputPort>
+<inputPort iterate="true" name="gene">
+<source processor="node_71"/>
+</inputPort>
+</processor>
+<processor id="node_74" x="29" y="239">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX uniprot: <http://chem2bio2rdf.org/uniprot/resource/>select ?gi ?gene from <http://chem2bio2rdf.org/uniprot> where { ?uniprot uniprot:gi ?gi . ?uniprot uniprot:geneSymbol ?gene .}]]></config>
+</function>
+</processor>
+<processor id="node_71" x="26" y="373">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX drugbank: <http://chem2bio2rdf.org/drugbank/resource/>Select ?gene FROM <http://chem2bio2rdf.org/drugbank> where { ?drugbank_interaction drugbank:gene ?gene . ?drugbank_interaction drugbank:DBID ?drugbank_drug . ?drugbank_drug drugbank:Generic_Name ?drug_name . FILTER (?drug_name="Dexamethasone") .}]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

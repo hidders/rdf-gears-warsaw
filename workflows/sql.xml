@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>tst</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_2" x="450" y="450">
+<processor id="node_2" x="249" y="84">
+<function type="nl.tudelft.rdfgears.rgl.function.standard.InsertSQLGears">
+<config param="bindVariables">input3;</config>
+<config param="query"><![CDATA[insert into actor values (?, 'bala', 'gala', 'B');]]></config>
+<config param="databaseURL">jdbc:postgresql://localhost/tomek</config>
+<config param="outputSpec">ID:I,firstname:S</config>
+<config param="inputSpec">input3:I</config>
+<config param="userName">tomek</config>
+</function>
+<inputPort iterate="false" name="input3">
+<source processor="node_3"/>
+</inputPort>
+</processor>
+
+<processor id="node_3" x="142" y="104">
+<function type="constant">
+<config param="value"><![CDATA["103"^^<http://www.w3.org/2001/XMLSchema#integer>]]></config>
+</function>
+</processor>
+
+</network>
+</workflow>
+</rdfgears>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>tst</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_2" x="450" y="450">
+<processor id="node_2" x="249" y="84">
+<function type="nl.tudelft.rdfgears.rgl.function.standard.SQLGears">
+<config param="bindVariables"/>
+<config param="query"><![CDATA[select id, first_name from actor;]]></config>
+<config param="databaseURL">jdbc:postgresql://localhost/tomek</config>
+<config param="outputSpec">ID:I,first_name:S</config>
+<config param="userName">tomek</config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

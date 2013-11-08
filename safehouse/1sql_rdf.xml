@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>1sql_rdf</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_116" x="686" y="607">
+<processor id="node_116" x="249" y="84">
+<function type="nl.tudelft.rdfgears.rgl.function.standard.SQLGears">
+<config param="bindVariables">gi;</config>
+<config param="query"><![CDATA[select cid, count(cid) as bar from gi_cid where gi = ? group by cid;]]></config>
+<config param="databaseURL">jdbc:postgresql://localhost/tomek</config>
+<config param="inputSpec">gi:S</config>
+<config param="outputSpec">a:S,b:S</config>
+<config param="userName">tomek</config>
+</function>
+<inputPort iterate="true" name="gi">
+<source processor="node_115"/>
+</inputPort>
+</processor>
+<processor id="node_115" x="375" y="406">
+<function type="record-project">
+<config param="projectField">gi</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_114"/>
+</inputPort>
+</processor>
+<processor id="node_114" x="202" y="405">
+<function type="record-project">
+<config param="projectField">gi_gene</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_113"/>
+</inputPort>
+</processor>
+<processor id="node_113" x="624" y="158">
+<function type="filter">
+<config param="implementation">workflow:1sql_rdf_filter</config>
+</function>
+<inputPort iterate="false" name="bag">
+<source processor="node_99"/>
+</inputPort>
+</processor>
+<processor id="node_99" x="439" y="157">
+<function type="record-create">
+<config param="fields">gi_gene;gene;</config>
+</function>
+<inputPort iterate="true" name="gi_gene">
+<source processor="node_74"/>
+</inputPort>
+<inputPort iterate="true" name="gene">
+<source processor="node_71"/>
+</inputPort>
+</processor>
+<processor id="node_74" x="249" y="84">
+<function type="nl.tudelft.rdfgears.rgl.function.standard.SQLGears">
+<config param="query"><![CDATA[select gi, gene from gi_gene;]]></config>
+<config param="databaseURL">jdbc:postgresql://localhost/tomek</config>
+<config param="outputSpec">gi:S,gene:S</config>
+<config param="userName">tomek</config>
+</function>
+</processor>
+<processor id="node_71" x="178" y="255">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX drugbank: <http://chem2bio2rdf.org/drugbank/resource/>Select ?gene FROM <http://chem2bio2rdf.org/drugbank> where { ?drugbank_interaction drugbank:gene ?gene . ?drugbank_interaction drugbank:DBID ?drugbank_drug . ?drugbank_drug drugbank:Generic_Name ?drug_name . FILTER (?drug_name="Dexamethasone") .}]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>gi_cid</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_14" x="450" y="450">
+<processor id="node_12" x="152" y="81">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX uniprot: <http://chem2bio2rdf.org/uniprot/resource/>select ?gi ?gene from <http://chem2bio2rdf.org/uniprot> where { ?uniprot uniprot:gi ?gi . ?uniprot uniprot:geneSymbol ?gene .}]]></config>
+</function>
+</processor>
+<processor id="node_14" x="249" y="84">
+<function type="nl.tudelft.rdfgears.rgl.function.standard.InsertSQLGears">
+<config param="bindVariables">record;</config>
+<config param="query"><![CDATA[insert into gi_gene values (?, ?);]]></config>
+<config param="databaseURL">jdbc:postgresql://localhost/tomek</config>
+<config param="outputSpec">ID:I,firstname:S</config>
+<config param="inputSpec">gi:S,gene:S</config>
+<config param="userName">tomek</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_12"/>
+</inputPort>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+
+

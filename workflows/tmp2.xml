@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>tmp2</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_29" x="450" y="450">
+<processor id="node_29" x="264" y="305">
+<function type="bag-union"/>
+<inputPort iterate="false" name="bag1">
+<source processor="node_27"/>
+</inputPort>
+<inputPort iterate="false" name="bag2">
+<source processor="node_28"/>
+</inputPort>
+</processor>
+<processor id="node_27" x="683" y="12">
+<function type="custom-java">
+<config param="implementation">nl.tudelft.rdfgears.rgl.function.standard.Identity</config>
+</function>
+<inputPort iterate="false" name="value">
+<source processor="node_25"/>
+</inputPort>
+</processor>
+<processor id="node_25" x="447" y="74">
+<function type="record-create">
+<config param="fields">field_name;input0;</config>
+</function>
+<inputPort iterate="true" name="field_name">
+<source processor="node_23"/>
+</inputPort>
+<inputPort iterate="true" name="input0">
+<source processor="node_23"/>
+</inputPort>
+</processor>
+<processor id="node_23" x="180" y="112">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://dbpedia.org/sparql]]></config>
+<config param="query"><![CDATA[PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>select distinct ?Concept where {[] dbpedia-owl:birthName ?Concept} LIMIT 400]]></config>
+</function>
+</processor>
+<processor id="node_28" x="687" y="129">
+<function type="custom-java">
+<config param="implementation">nl.tudelft.rdfgears.rgl.function.standard.Identity</config>
+</function>
+<inputPort iterate="false" name="value">
+<source processor="node_25"/>
+</inputPort>
+</processor>
+</network>
+</workflow>
+</rdfgears>

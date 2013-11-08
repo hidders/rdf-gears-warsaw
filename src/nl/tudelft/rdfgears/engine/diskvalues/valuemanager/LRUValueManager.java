@@ -1,9 +1,8 @@
 package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 
@@ -12,20 +11,26 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
  * 
  */
 public class LRUValueManager extends AbstractBDBValueManager {
-	private Map<Long, RGLValueWrapper> valuesCache = new HashMap<Long, RGLValueWrapper>();
-	private TreeMap<Long, Long> lastUse = new TreeMap<Long, Long>();
+	private static int valuesCacheSize = 100;
+	
+	private Map<Long, RGLValueWrapper> valuesCache = new LinkedHashMap<Long, RGLValueWrapper>(valuesCacheSize, 1, true) {
 
-	private int valuesCacheSize = 1000;
+		private static final long serialVersionUID = -7358692784318271466L;
 
-	private void putIntoCache(RGLValueWrapper v) {
-		if (valuesCache.size() == valuesCacheSize) {
-			long lruId = leastRecentlyUsed(lastUse);
-			lastUse.remove(lruId);
-			RGLValueWrapper lruV = valuesCache.remove(lruId);
-			dumpValue(lruV);
+		@Override
+		protected boolean removeEldestEntry(Entry<Long, RGLValueWrapper> eldest) {
+			if (size() == valuesCacheSize) {
+				dumpValue(eldest.getValue());
+				return true;
+			} else {
+				return false;
+			}
 		}
+		
+	};
+	
+	private void putIntoCache(RGLValueWrapper v) {
 		valuesCache.put(v.getRglValue().getId(), v);
-		lastUse.put(v.getRglValue().getId(), System.currentTimeMillis());
 	}
 
 	public void registerValue(RGLValue value) {
@@ -34,39 +39,18 @@ public class LRUValueManager extends AbstractBDBValueManager {
 
 	@Override
 	public RGLValue fetchValue(long id) {
+		increaseAllCount();
 		RGLValueWrapper fetchedValue;
 		fetchedValue = valuesCache.get(id);
 		if (fetchedValue == null) {
 			fetchedValue = readValue(id);
 			putIntoCache(fetchedValue);
 		}
-		lastUse.put(id, System.currentTimeMillis());
 		return fetchedValue.getRglValue();
-	}
-
-	private long leastRecentlyUsed(Map<Long, Long> lastUse) {
-		long min = Long.MAX_VALUE;
-		long id = -1;
-
-		for (Entry<Long, Long> e : lastUse.entrySet()) {
-			if (e.getValue() < min) {
-				min = e.getValue();
-				id = e.getKey();
-			}
-		}
-
-		return id;
 	}
 
 	@Override
 	public void updateValue(RGLValue value) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void shutDown() {
-		// TODO Auto-generated method stub
-		
 	}
 }

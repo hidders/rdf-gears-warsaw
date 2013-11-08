@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nl.tudelft.rdfgears.engine.Config;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 
 import com.sleepycat.bind.EntryBinding;
 import com.sleepycat.bind.serial.StoredClassCatalog;
@@ -30,18 +31,25 @@ public class DatabaseManager {
 	public static void initialize() {
 		databases = new HashMap<String, Database>();
 		EnvironmentConfig envConfig = new EnvironmentConfig();
+//		envConfig.setCacheSize(0);
+		envConfig.setCachePercent(1);
 		envConfig.setAllowCreate(true);
-
 		dbEnvironment = new Environment(new File(Config.DEFAULT_DB_PATH),
 				envConfig);
 		dbConfig = new DatabaseConfig();
 		dbConfig.setAllowCreate(true);
-		dbConfig.setTemporary(true);
+		dbConfig.setDeferredWrite(false);
+//		dbConfig.setTransactional(false);
+		dbConfig.setTemporary(false);
+//		dbConfig.setTemporary(true);
+		
 		complexStore = (dbEnvironment.openDatabase(null, "complexStore",
 				dbConfig));
 		dbConfig.setSortedDuplicates(false);
 		myClassDb = dbEnvironment.openDatabase(null, "classDb", 
-	            dbConfig); 
+				dbConfig);
+		
+		storedClassCatalog = new StoredClassCatalog(myClassDb);
 	}
 
 	public static Database openListDatabase(String name) {
@@ -60,6 +68,7 @@ public class DatabaseManager {
 	}
 
 	public static void cleanUp() {
+		ValueManager.shutDown();
 		complexStore.close();
 		myClassDb.close();
 		for (Database db : databases.values())
@@ -94,7 +103,7 @@ public class DatabaseManager {
 	}
 	
 	public static StoredClassCatalog getClassCatalog() {
-		return new StoredClassCatalog(myClassDb);
+		return storedClassCatalog;
 	}
 	
 }

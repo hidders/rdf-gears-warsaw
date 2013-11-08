@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.rgl.datamodel.value.impl;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import nl.tudelft.rdfgears.engine.ValueFactory;
@@ -32,7 +33,7 @@ import nl.tudelft.rdfgears.util.row.ValueRow;
  */
 public class MappingBagValue extends StreamingBagValue {
 
-	class MappingIterator implements RenewableIterator<RGLValue> {
+	class MappingIterator implements RenewableIterator<RGLValue>, Serializable {
 		Iterator<ValueRow> inputRowIter;
 
 		public MappingIterator() {

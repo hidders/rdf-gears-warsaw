@@ -1,8 +1,10 @@
 package nl.tudelft.rdfgears.engine;
 
-import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 
 import nl.tudelft.rdfgears.engine.diskvalues.DatabaseManager;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.engine.server.RDFGearsServer;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.datamodel.value.visitors.ValueEvaluator;
@@ -30,6 +32,7 @@ public class RDFGears {
 	private static CmdOptions options;
 
 	public static void main(String[] args) {
+		
 		/**
 		 * See if we can parse cmd line options
 		 */
@@ -57,7 +60,9 @@ public class RDFGears {
 		if (options.isDiskBased()) {
 			Engine.getConfig().setDiskBased();
 		}
-
+		
+		Engine.getConfig().setCacheType(options.getCacheType());
+		
 		if (options.isWorkflowPathList()) /* configure workflow path */
 			Engine.getConfig().configurePath(options.getWorkflowPathList());
 		
@@ -73,6 +78,14 @@ public class RDFGears {
 			runAsInterpreter();
 		}
 		
+		double all = ValueManager.getAllCount();
+		double miss = ValueManager.getMissCount();
+		
+		System.err.println("Hit count:\t" + (all - miss));
+		System.err.println("Miss count:\t" + miss);
+		System.err.println("Hit ration:\t" + ((all - miss) * 100 / all) +"%");
+		System.err.println("Hit ration:\t" + ((all - miss) / all * 100) +"%");
+		System.err.println("Write count:\t" + ValueManager.getWriteCount());
 	}
 	
 	/**

@@ -74,7 +74,7 @@ public class ValueXMLSerializer extends ValueSerializer {
 				elem.accept(this);
 				++counter;
 				if (counter % 1000 == 0)
-				System.err.println(counter);
+					System.err.println(counter);
 			}
 			xmlwriter.writeEndElement(); // bag
 			

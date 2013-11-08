@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>ss</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_35" x="450" y="450">
+<processor id="node_35" x="835" y="139">
+<function type="record-create">
+<config param="fields">field_name;input0;</config>
+</function>
+<inputPort iterate="false" name="field_name">
+<source processor="node_23"/>
+</inputPort>
+<inputPort iterate="false" name="input0">
+<source processor="node_23"/>
+</inputPort>
+</processor>
+<processor id="node_23" x="595" y="111">
+<function type="record-create">
+<config param="fields">a;b;</config>
+</function>
+<inputPort iterate="true" name="a">
+<source processor="node_24"/>
+</inputPort>
+<inputPort iterate="true" name="b">
+<source processor="node_33"/>
+</inputPort>
+</processor>
+<processor id="node_24" x="168" y="85">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX drugbank: <http://chem2bio2rdf.org/drugbank/resource/>
+
+select ?gene FROM <http://chem2bio2rdf.org/drugbank> WHERE {
+?drugbank_interaction drugbank:gene ?gene .
+ ?drugbank_interaction drugbank:DBID ?drugbank_drug .
+ ?drugbank_drug drugbank:Generic_Name ?drug_name .
+}]]></config>
+</function>
+</processor>
+<processor id="node_33" x="393" y="219">
+<function type="record-project">
+<config param="projectField">gi</config>
+</function>
+<inputPort iterate="true" name="record">
+<source processor="node_32"/>
+</inputPort>
+</processor>
+<processor id="node_32" x="171" y="216">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://cheminfov.informatics.indiana.edu:8890/sparql]]></config>
+<config param="query"><![CDATA[PREFIX pubchem: <http://chem2bio2rdf.org/pubchem/resource/>
+
+select ?gi ?compound_cid FROM <http://chem2bio2rdf.org/pubchem> where {
+  ?bioassay pubchem:CID ?compound_cid .
+  ?bioassay pubchem:outcome ?activity .
+  FILTER (?activity=2) .
+  ?bioassay pubchem:Score ?score .
+   FILTER (?score>50) .
+  ?bioassay pubchem:gi ?gi .
+}]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

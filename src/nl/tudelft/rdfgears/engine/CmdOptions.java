@@ -40,4 +40,7 @@ public interface CmdOptions {
 
 	  @Option(longName="diskBased", description="Use disk based backend. Only recomended for really large data.")
 	  boolean isDiskBased();
+	  
+	  @Option(longName="cacheType", description="Cache type", defaultValue="mem")
+	  String getCacheType();
 }

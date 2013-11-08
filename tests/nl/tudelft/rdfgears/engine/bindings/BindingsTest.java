@@ -62,7 +62,7 @@ public class BindingsTest {
 	}
 	
 	private static List<RGLValue> getListOfDouble() {
-		List<RGLValue> list = new ArrayList<RGLValue>();
+		List<RGLValue> list = new DiskList();
 		for (double i = 0.0; i < SIZE; ++i) {
 			list.add(MemoryLiteralValue.createLiteralTyped(i, new XSDDouble(
 					"double")));

@@ -1,5 +1,6 @@
 package nl.tudelft.rdfgears.engine.bindings;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import com.sleepycat.bind.tuple.TupleBinding;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
-public class RGLListBinding extends TupleBinding<List<RGLValue>> {
+public class RGLListBinding extends TupleBinding<List<RGLValue>> implements Serializable {
 
 	@Override
 	public List<RGLValue> entryToObject(TupleInput in) {

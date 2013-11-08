@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>1sql_rdf_size_filter</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_13" x="450" y="450">
+<processor id="node_13" x="478" y="80">
+<function type="comparator">
+<config param="operator">OP_GREATER_EQUAL</config>
+</function>
+<inputPort iterate="false" name="a">
+<source processor="node_11"/>
+</inputPort>
+<inputPort iterate="false" name="b">
+<source processor="node_14"/>
+</inputPort>
+</processor>
+<processor id="node_11" x="241" y="94">
+<function type="custom-java">
+<config param="implementation">nl.tudelft.rdfgears.rgl.function.standard.BagSize</config>
+</function>
+<inputPort iterate="false" name="bag">
+<source workflowInputPort="input1"/>
+</inputPort>
+</processor>
+<processor id="node_14" x="212" y="266">
+<function type="constant">
+<config param="value"><![CDATA["2"^^]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

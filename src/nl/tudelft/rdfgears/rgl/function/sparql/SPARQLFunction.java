@@ -119,7 +119,7 @@ public class SPARQLFunction extends SimplyTypedRGLFunction {
 			}
 		}
 		
-		System.err.println(queryString);
+//		System.err.println(queryString);
 		
 		setQuery(computedQueryString);
 		configureBehavior();

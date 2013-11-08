@@ -2,6 +2,7 @@ package nl.tudelft.rdfgears.engine.diskvalues.valuemanager;
 
 import java.util.Map;
 
+import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 import nl.tudelft.rdfgears.rgl.function.RGLFunction;
 import nl.tudelft.rdfgears.rgl.function.core.BagCategorize.AbstractCategoryBag;
@@ -14,19 +15,48 @@ import com.hp.hpl.jena.query.Query;
  * @author Tomasz Traczyk
  */
 public class ValueManager {
+	
+	public enum CACHE_TYPE {
+		JCS("jsc"),
+		LRU("lru"),
+		MEM("mem"),
+		SFT("sft"),
+		MIX("mix"),
+		CHN("chn"),
+		PURE("pure"),
+		TWO("two");
 
+		String code;
+		private CACHE_TYPE(String code) {
+			this.code = code;
+		}
+	};
 	/**
 	 * The real valueManager
 	 */
-	private static ValueManagerIface valueManager = getValueManager();
+	private static ValueManagerIface valueManager = getValueManager(Engine.getConfig().getCacheType());
 
-	private static ValueManagerIface getValueManager() {
-		return new MemoryValueManager();
-//		return new JCSValueManager();
-//		return new LRUValueManager();
-//		return new SoftValueManager();
-//		return new ChunksValueManager();
-//		return new MixedValueManager();
+	private static ValueManagerIface getValueManager(CACHE_TYPE cacheType) {
+		switch (cacheType) {
+		case JCS:
+			return new JCSValueManager();
+		case MEM:
+			return new MemoryValueManager();
+		case CHN:
+			return new ChunksValueManager();
+		case LRU:
+			return new LRUValueManager();
+		case MIX:
+			return new MixedValueManager();
+		case SFT:
+			return new SoftValueManager();
+		case TWO:
+			return new TwoPhaseValueManager();
+		case PURE:
+			return new PureBDBValueManage();
+		default:
+			return new MemoryValueManager();
+		}
 	}
 
 	/**
@@ -125,5 +155,33 @@ public class ValueManager {
 
 	public static Map<Long, Integer> getIteratorPositionsMap() {
 		return valueManager.getIteratorPositionsMap();
+	}
+	
+	public static void increaseAllCount() {
+		valueManager.increaseAllCount();
+	}
+	
+	public static void increaseMissCount() {
+		valueManager.increaseMissCount();
+	}
+	
+	public static int getAllCount() {
+		return valueManager.getAllCount();
+	}
+	
+	public static int getMissCount() {
+		return valueManager.getMissCount();
+	}
+	
+	public static void increaseWriteCount() {
+		valueManager.increaseWriteCount();
+	}
+	
+	public static int getWriteCount() {
+		return valueManager.getWriteCount();
+	}
+	
+	public static void finalize(RGLValueWrapper value) {
+		valueManager.finalize(value);
 	}
 }

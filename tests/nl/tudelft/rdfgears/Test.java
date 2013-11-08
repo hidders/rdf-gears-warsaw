@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 	  TestLocalQueries.class,
 	  TestCoreFunctions.class,
 	  TestLazy.class,
-	  BindingsTest.class
+//	  BindingsTest.class
 })
 
 public class Test {

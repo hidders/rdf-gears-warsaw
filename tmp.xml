@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>tmp</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_15" x="450" y="450">
+<processor id="node_15" x="317" y="103">
+<function type="sparql-endpoint">
+<config param="endpoint"><![CDATA[http://dbpedia.org/sparql]]></config>
+<config param="query"><![CDATA[PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>select distinct ?Concept where {[] dbpedia-owl:birthName ?Concept} LIMIT 100]]></config>
+</function>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

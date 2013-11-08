@@ -19,7 +19,7 @@ public class EncapsulatedBinding {
 		this.id = id;
 	}
 
-	public static RGLValueWrapper entryToObject(DatabaseEntry entry) {
+	public static RGLValue entryToObject(DatabaseEntry entry) {
 //		String className = in.readString();
 //		ComplexBinding binding = (ComplexBinding) BindingFactory
 //				.createBinding(className);
@@ -36,7 +36,7 @@ public class EncapsulatedBinding {
 
 	    // Recreate the MyData object from the retrieved DatabaseEntry using
 	    // the EntryBinding created above
-	    return (RGLValueWrapper) dataBinding.entryToObject(entry);
+	    return (RGLValue) dataBinding.entryToObject(entry);
 	}
 
 	public void objectToEntry(RGLValue value, TupleOutput out) {
@@ -44,16 +44,21 @@ public class EncapsulatedBinding {
 		((ComplexBinding) value.getBinding()).writeComplexToOutput(value, out);
 	}
 
-	public static void writeComplex(RGLValueWrapper value) {
+	public static void writeComplex(RGLValue value) {
 		Database complexStore = DatabaseManager.getComplexStore();
 		DatabaseEntry valueEntry = new DatabaseEntry();
-		DatabaseEntry idEntry = DatabaseManager.long2entry(value.getRglValue().getId());
+		DatabaseEntry idEntry = DatabaseManager.long2entry(value.getId());
 		
 		StoredClassCatalog classCatalog = DatabaseManager.getClassCatalog();
-		EntryBinding<RGLValueWrapper> dataBinding = new SerialBinding<RGLValueWrapper>(classCatalog,
-				RGLValueWrapper.class);
+		EntryBinding<RGLValue> dataBinding = new SerialBinding<RGLValue>(classCatalog,
+				RGLValue.class);
 		dataBinding.objectToEntry(value, valueEntry);
 		
 		complexStore.put(null, idEntry, valueEntry);
+	}
+	
+	public static synchronized void write(DatabaseEntry key, DatabaseEntry value) {
+		Database complexStore = DatabaseManager.getComplexStore();
+		complexStore.put(null, key, value);
 	}
 }

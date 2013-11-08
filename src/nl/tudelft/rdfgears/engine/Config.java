@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
+
 import org.apache.log4j.Level;
 
 /**
@@ -26,6 +28,7 @@ public class Config {
 	private static final String STRING_TRUE  = "true"; 
 	private static final String STRING_FALSE = "false";
 	public static final String DEFAULT_RGL_SERIALIZATION_FORMAT = "xml"; 
+	
 	
 	private List<String> workflowPathList;
 	
@@ -129,6 +132,15 @@ public class Config {
 	
 	public void setDiskBased() {
 		configMap.put("is_disk_based", Boolean.toString(true));
+	}
+	
+	public void setCacheType(String cacheTypeCode) {
+		configMap.put("cache_type", cacheTypeCode);
+	}
+
+	public ValueManager.CACHE_TYPE getCacheType() {
+		String cacheTypeCode = configMap.getProperty("cache_type");
+		return ValueManager.CACHE_TYPE.valueOf(cacheTypeCode.toUpperCase());
 	}
 
 	/**

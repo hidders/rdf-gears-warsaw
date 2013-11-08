@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>gi_cid</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_3" x="450" y="450">
+<processor id="node_2" x="422" y="84">
+<function type="record-create">
+<config param="fields">fake;</config>
+</function>
+<inputPort iterate="true" name="fake">
+<source processor="node_1"/>
+</inputPort>
+</processor>
+<processor id="node_1" x="195" y="79">
+<function type="custom-java">
+<config param="implementation">nl.tudelft.rdfgears.rgl.function.custom.BagOf10001Function</config>
+</function>
+</processor>
+<processor id="node_3" x="195" y="79">
+<function type="custom-java">
+<config param="implementation">nl.tudelft.rdfgears.rgl.function.standard.Identity</config>
+</function>
+<inputPort iterate="false" name="value">
+<source processor="node_2"/>
+</inputPort>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+
+

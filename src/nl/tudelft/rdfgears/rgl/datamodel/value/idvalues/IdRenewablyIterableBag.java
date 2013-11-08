@@ -31,7 +31,13 @@ public class IdRenewablyIterableBag extends IdRGLValue implements RenewablyItera
 
 	@Override
 	public Iterator<RGLValue> iterator() {
-		return ((RenewablyIterableBag) fetch().asBag()).iterator();
+		try {
+			RenewablyIterableBag bag = (RenewablyIterableBag) fetch().asBag();
+			return bag.iterator();
+		} catch (NullPointerException e) {
+			System.err.println("Null for id " + this.id);
+			throw e;
+		}
 	}
 
 	@Override

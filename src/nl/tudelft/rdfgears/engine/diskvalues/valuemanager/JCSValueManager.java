@@ -4,6 +4,7 @@ import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 
 import org.apache.jcs.JCS;
 import org.apache.jcs.access.exception.CacheException;
+import org.apache.jcs.engine.CompositeCacheAttributes;
 import org.apache.log4j.Logger;
 
 public class JCSValueManager extends AbstractValueManager {
@@ -16,6 +17,7 @@ public class JCSValueManager extends AbstractValueManager {
 		
 		try {
 			cache = JCS.getInstance(CACHE_REGION_NAME);
+			CompositeCacheAttributes cca = new CompositeCacheAttributes();
 		} catch (CacheException e) {
 			// FIXME
 		}
@@ -34,8 +36,10 @@ public class JCSValueManager extends AbstractValueManager {
 	@Override
 	public RGLValue fetchValue(long id) {
 		RGLValue fetched = (RGLValue) cache.get(Long.toString(id));
+		
 		if (fetched == null) {
-			logger.error("Element not found: " + id);
+			throw new RuntimeException("Not found for:\t" + id);
+//			System.err.println("Not found for:\t" + id);
 		}
 
 		return fetched;

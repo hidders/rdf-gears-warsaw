@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdfgears>
+<metadata>
+<id>1sql_rdf_filter</id>
+<description/>
+<password/>
+</metadata>
+<workflow>
+<workflowInputList x="10" y="100">
+<workflowInputPort name="input1"/>
+</workflowInputList>
+<network output="node_107" x="450" y="450">
+<processor id="node_107" x="709" y="113">
+<function type="comparator">
+<config param="operator">OP_EQUAL</config>
+</function>
+<inputPort iterate="false" name="a">
+<source processor="node_104"/>
+</inputPort>
+<inputPort iterate="false" name="b">
+<source processor="node_105"/>
+</inputPort>
+</processor>
+<processor id="node_104" x="473" y="30">
+<function type="record-project">
+<config param="projectField">gene</config>
+</function>
+<inputPort iterate="false" name="record">
+<source processor="node_102"/>
+</inputPort>
+</processor>
+<processor id="node_102" x="257" y="42">
+<function type="record-project">
+<config param="projectField">gi_gene</config>
+</function>
+<inputPort iterate="false" name="record">
+<source workflowInputPort="input1"/>
+</inputPort>
+</processor>
+<processor id="node_105" x="465" y="236">
+<function type="record-project">
+<config param="projectField">gene</config>
+</function>
+<inputPort iterate="false" name="record">
+<source processor="node_103"/>
+</inputPort>
+</processor>
+<processor id="node_103" x="237" y="231">
+<function type="record-project">
+<config param="projectField">gene</config>
+</function>
+<inputPort iterate="false" name="record">
+<source workflowInputPort="input1"/>
+</inputPort>
+</processor>
+</network>
+</workflow>
+</rdfgears>
+

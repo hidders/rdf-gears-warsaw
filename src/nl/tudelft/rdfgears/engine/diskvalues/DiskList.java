@@ -9,6 +9,7 @@ import java.util.ListIterator;
 
 import nl.tudelft.rdfgears.engine.Engine;
 import nl.tudelft.rdfgears.engine.bindings.RGLListBinding;
+import nl.tudelft.rdfgears.engine.diskvalues.valuemanager.ValueManager;
 import nl.tudelft.rdfgears.rgl.datamodel.value.RGLValue;
 
 import com.sleepycat.bind.tuple.TupleBinding;
@@ -65,6 +66,7 @@ public class DiskList implements List<RGLValue>, Serializable {
 
 		@Override
 		public synchronized RGLValue next() {
+			ValueManager.increaseAllCount();
 			rangeCheck(nextIndexPointer);
 			RGLValue ret;
 			if ((ret = tryToGet(nextIndexPointer, iteratorOffset, iteratorCache)) != null)
@@ -74,6 +76,7 @@ public class DiskList implements List<RGLValue>, Serializable {
 			else if ((ret = tryToGet(nextIndexPointer, getOffset, getCache)) != null)
 				;
 			else {
+				ValueManager.increaseMissCount();
 				iteratorOffset = loadCache(nextIndexPointer, iteratorCache);
 				ret = iteratorCache.get(nextIndexPointer - iteratorOffset);
 			}
@@ -132,7 +135,7 @@ public class DiskList implements List<RGLValue>, Serializable {
 	private List<RGLValue> getCache = new ArrayList<RGLValue>();
 	private int getOffset;
 
-	private Database listDatabase;
+//	private Database listDatabase;
 	private TupleBinding<List<RGLValue>> dataBinding;
 
 	/**
@@ -166,7 +169,7 @@ public class DiskList implements List<RGLValue>, Serializable {
 		this.databaseName = databaseName;
 		getOffset = -cacheSize; // initially there's no getCache;
 		addOffset = Math.max(0, size - (size % cacheSize) - cacheSize);
-		listDatabase = DatabaseManager.openListDatabase(databaseName);
+//		setListDatabase(DatabaseManager.openListDatabase(databaseName));
 		dataBinding = new RGLListBinding();
 		if (size != 0)
 			loadCache(addOffset, addCache);
@@ -209,8 +212,8 @@ public class DiskList implements List<RGLValue>, Serializable {
 		DatabaseEntry key = DatabaseManager.int2entry(addOffset);
 		DatabaseEntry data = new DatabaseEntry();
 		dataBinding.objectToEntry(addCache, data);
-		listDatabase.put(null, key, data);
-		Engine.getLogger().info("Dumping cache for " + databaseName + " on key " + addOffset + ", cacheSize: " + addCache.size() + " database.count: " + listDatabase.count());
+		getListDatabase().put(null, key, data);
+		Engine.getLogger().info("Dumping cache for " + databaseName + " on key " + addOffset + ", cacheSize: " + addCache.size() + " database.count: " + getListDatabase().count());
 		addCache.clear();
 
 		Stoper.diskTime += System.currentTimeMillis();
@@ -227,11 +230,13 @@ public class DiskList implements List<RGLValue>, Serializable {
 	public RGLValue get(int index) {
 		rangeCheck(index);
 		RGLValue ret;
+		ValueManager.increaseAllCount();
 		if ((ret = tryToGet(index, getOffset, getCache)) != null) {
 			return ret;
 		} else if ((ret = tryToGet(index, addOffset, addCache)) != null) {
 			return ret;
 		} else {
+			ValueManager.increaseMissCount();
 			getOffset = loadCache(index, getCache);
 			return getCache.get(index - getOffset);
 		}
@@ -281,11 +286,11 @@ public class DiskList implements List<RGLValue>, Serializable {
 		Engine.getLogger().info("Loading cache for " + databaseName + " on key " + offset + " to get index " + index + "...");
 
 		DatabaseEntry data = new DatabaseEntry();
-		listDatabase.get(null, key, data, LockMode.DEFAULT);
+		getListDatabase().get(null, key, data, LockMode.DEFAULT);
 		cache.clear();
 		cache.addAll((ArrayList<RGLValue>) dataBinding.entryToObject(data));
 		Engine.getLogger().info("\t...size: " + cache.size());
-		Engine.getLogger().info("\t...dataBaseSize: " + listDatabase.count());
+		Engine.getLogger().info("\t...dataBaseSize: " + getListDatabase().count());
 		Stoper.diskTime += System.currentTimeMillis();
 		return offset;
 	}
@@ -385,4 +390,8 @@ public class DiskList implements List<RGLValue>, Serializable {
 		return addOffset;
 	}
 
+	private Database getListDatabase() {
+		return DatabaseManager.openListDatabase(databaseName);
+//		return listDatabase;
+	}
 }

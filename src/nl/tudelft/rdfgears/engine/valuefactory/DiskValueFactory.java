@@ -52,8 +52,8 @@ public class DiskValueFactory extends MemoryValueFactory {
 
 	@Override
 	public List<RGLValue> createBagBackingList() {
-//		return new DiskList();
-		return new ArrayList<RGLValue>();
+		return new DiskList();
+//		return new ArrayList<RGLValue>();
 	}
 
 	@Override

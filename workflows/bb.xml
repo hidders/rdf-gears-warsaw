@@ -39,7 +39,7 @@
          </processor>
          <processor id="node_13" x="395" y="8">
             <function type="sparql-endpoint">
-               <config param="endpoint">http://localhost:8890/sparql</config>
+               <config param="endpoint">http://cheminfov.informatics.indiana.edu:8890/sparql</config>
                <config param="query">PREFIX drugbank: &lt;http://chem2bio2rdf.org/drugbank/resource/&gt;
 
 select ?gene FROM &lt;http://chem2bio2rdf.org/drugbank&gt; WHERE {
@@ -60,7 +60,7 @@ select ?gene FROM &lt;http://chem2bio2rdf.org/drugbank&gt; WHERE {
          </processor>
          <processor id="node_41" x="154" y="134">
             <function type="sparql-endpoint">
-               <config param="endpoint">http://localhost:8890/sparql</config>
+               <config param="endpoint">http://cheminfov.informatics.indiana.edu:8890/sparql</config>
                <config param="query">PREFIX pubchem: &lt;http://chem2bio2rdf.org/pubchem/resource/&gt;
 
 select ?gi ?compound_cid FROM &lt;http://chem2bio2rdf.org/pubchem&gt; where {

@@ -72,19 +72,33 @@ public interface ValueManagerIface {
 	RGLValue fetchValue(long id);
 
 	/**
-	 * Updates the given value. 
+	 * Updates the given value.
 	 * 
-	 * It's necessary to implement this method in {@link JCSValueManager},
-	 * the rest of managers might probably have just an empty method here,
-	 * but probably implementing this would be safer and wouldn't affect efficency
-	 * that much 
+	 * It's necessary to implement this method in {@link JCSValueManager}, the
+	 * rest of managers might probably have just an empty method here, but
+	 * probably implementing this would be safer and wouldn't affect efficency
+	 * that much
 	 * 
 	 * @param value
 	 */
 	void updateValue(RGLValue value);
 
 	void shutDown();
-	
+
 	Map<Long, Integer> getIteratorPositionsMap();
 	
+	public int getAllCount();
+	
+	public int getMissCount();
+	
+	public void increaseAllCount();
+	
+	public void increaseMissCount();
+	
+	public void increaseWriteCount();
+	
+	public int getWriteCount();
+
+	void finalize(RGLValueWrapper value);
+
 }

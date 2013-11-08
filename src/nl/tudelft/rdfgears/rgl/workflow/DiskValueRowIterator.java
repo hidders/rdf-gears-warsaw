@@ -15,7 +15,7 @@ public class DiskValueRowIterator extends AbstractValueRowIterator {
 	 * Altogether these states determine how far the iteration is.
 	 */
 	private HashMap<String, Long> inputIterIdMap;
-
+	
 	public DiskValueRowIterator(ValueRow originalInputs,
 			FunctionProcessor processor, boolean recycleReturnRow) {
 		super(originalInputs, processor, recycleReturnRow);
